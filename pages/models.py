@@ -215,3 +215,18 @@ class BlogPostPage(StreamPageAbstract):
         verbose_name = "Blog Page"
         verbose_name_plural = "Blog Pages"
         ordering = ['-first_published_at']
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        similar_objects = [x.id for x in self.tags.similar_objects()]
+        context['related_blog_posts'] = (
+            BlogPostPage
+            .objects
+            .live()
+            .public()
+            .filter(
+                id__in=similar_objects,
+            )
+            .distinct()[:3]
+        )
+        return context
