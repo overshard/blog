@@ -40,8 +40,8 @@ module.exports = {
       ],
       notify: false,
       open: false,
-      reloadDelay: 1000,
-      reloadDebounce: 1000,
+      reloadDelay: 1500,
+      reloadDebounce: 1500,
     }),
     new MiniCssExtractPlugin({
       filename: "[name].css",
