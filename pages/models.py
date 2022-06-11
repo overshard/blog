@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models import Q
+from django.http import JsonResponse
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import Tag, TaggedItemBase
@@ -84,7 +86,7 @@ class HomePage(StreamPageAbstract):
         return context
 
 
-class SearchPage(StreamPageAbstract):
+class SearchPage(RoutablePageMixin, StreamPageAbstract):
     max_count = 1
 
     page_description = "The search page of our website, you should only have one of these"
@@ -96,11 +98,28 @@ class SearchPage(StreamPageAbstract):
         verbose_name = 'Search Page'
         verbose_name_plural = 'Search Pages'
 
-    def get_context(self, request, *args, **kwargs):
-        context = super().get_context(request, *args, **kwargs)
-        query = request.GET.get('q', '')
-        context['results'] = BlogPostPage.objects.live().public().search(query)
-        return context
+    @route(r'^$')
+    def search(self, request, *args, **kwargs):
+        q = request.GET.get('q', '')
+        results = BlogPostPage.objects.live().public().search(q)
+        return self.render(request, context_overrides={'results': results})
+
+    @route(r'^live/$')
+    def live_search(self, request, *args, **kwargs):
+        q = request.GET.get('q', '')
+        # NOTE: wagtail's autocomplete feature doesn't work with sqlite so I'm
+        # doing a bit of a workaround, you should use autocomplete if you can
+        results_queryset = BlogPostPage.objects.live().public().filter(
+            Q(title__icontains=q) | Q(search_description__icontains=q) | Q(tags__name__icontains=q)
+        ).distinct()[:5]
+        results = []
+        for result in results_queryset:
+            results.append({
+                'title': result.title,
+                'description': result.search_description,
+                'url': result.full_url,
+            })
+        return JsonResponse(results, safe=False)
 
 
 class BlogIndexPage(RoutablePageMixin, StreamPageAbstract):
