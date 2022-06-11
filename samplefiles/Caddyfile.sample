@@ -8,6 +8,8 @@
 (common) {
   header /* {
     X-XSS-Protection "1; mode=block"
+    X-Content-Type-Options nosniff
+    Cache-Control "max-age=5256000"
     -Server
   }
 
