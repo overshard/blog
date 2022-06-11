@@ -14,21 +14,25 @@ from wagtail.search import index
 
 
 class StreamPageAbstract(Page):
-    body = StreamField([
-        ('rich_text', RichTextBlock()),
-        ('image', ImageChooserBlock()),
-        ('code', StructBlock([
-            ('language', ChoiceBlock(choices=[
-                ('python', 'Python'),
-                ('javascript', 'Javascript'),
-                ('htmlmixed', 'HTML'),
-                ('css', 'CSS'),
-                ('shell', 'Shell'),
+    body = StreamField(
+        [
+            ('rich_text', RichTextBlock()),
+            ('image', ImageChooserBlock()),
+            ('code', StructBlock([
+                ('language', ChoiceBlock(choices=[
+                    ('python', 'Python'),
+                    ('javascript', 'Javascript'),
+                    ('htmlmixed', 'HTML'),
+                    ('css', 'CSS'),
+                    ('shell', 'Shell'),
+                ])),
+                ('text', TextBlock()),
             ])),
-            ('text', TextBlock()),
-        ])),
-        ('embed', EmbedBlock()),
-    ], use_json_field=True)
+            ('embed', EmbedBlock()),
+        ],
+        use_json_field=True,
+        blank=True,
+    )
     cover_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
