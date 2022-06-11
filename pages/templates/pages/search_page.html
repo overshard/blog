@@ -25,25 +25,10 @@
     </div>
   </div>
 </div>
-<div class="container mt-5">
-  {% include 'includes/body.html' %}
-</div>
-<div class="container mt-5">
-  <div class="row mb-5">
-    <div class="col-sm-8">
-      <form method="GET">
-        <div class="row">
-          <div class="col-8">
-            <div class="form-floating">
-              <input type="text" class="form-control" id="id_search" name="q">
-              <label for="id_search">Let us know what you want to find</label>
-            </div>
-          </div>
-          <div class="col-4">
-            <button class="btn btn-lg btn-success w-100 h-100" type="submit">Search</button>
-          </div>
-        </div>
-      </div>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6">
+      {% include 'includes/search_form.html' %}
     </div>
   </div>
 </div>

@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
             searchEl.parentElement.appendChild(resultsEl);
             // add a new ul to the resultsEl
             const resultsDiv = document.createElement("ul");
-            resultsDiv.classList.add("list-group", "rounded-bottom", "position-absolute");
+            resultsDiv.classList.add("list-group", "rounded-bottom", "position-absolute", "mt-2");
             resultsDiv.style.zIndex = "1100"; // above everything else bootstrap
             resultsDiv.style.width = searchEl.offsetWidth + "px";
             resultsEl.appendChild(resultsDiv);

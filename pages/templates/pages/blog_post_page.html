@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static wagtailcore_tags wagtailimages_tags %}
+{% load static wagtailcore_tags wagtailimages_tags wagtailroutablepage_tags %}
 
 
 {% block extra_head %}
@@ -19,44 +19,47 @@
 
 {% block main %}
 <div class="container mt-5">
-  <div class="row mb-3">
+  <div class="row">
     <div class="col-12 col-sm-6">
-      <div class="mb-3">
+      <div class="mb-5">
         {% for tag in self.tags.all %}
-          <a href="#" class="btn btn-outline-primary btn-sm rounded-pill">{{ tag }}</a>
+          <a href="{% routablepageurl self.get_parent.specific 'tag' tag.slug %}" class="btn btn-outline-primary btn-sm rounded-pill">{{ tag|title }}</a>
         {% endfor %}
       </div>
       <h1 class="fw-bolder">{{ self.title }}</h1>
       <p class="h5 text-muted">{{ self.search_description }}</p>
     </div>
   </div>
-  <div class="row">
-    <div class="col-12">
-      {% if self.cover_image %}
-        {% image self.cover_image fill-1920x1080 format-webp class="img-fluid rounded" %}
-      {% endif %}
-      <div class="border-bottom border-3 py-3">
-        <div class="text-muted small mb-2">Author</div>
-        <div class="row">
-          <div class="col">
-            <div class="d-flex align-items-center">
-              <image class="rounded-circle me-3" src="{{ self.owner.wagtail_userprofile.avatar.url }}" alt="{{ self.owner.first_name }} {{ self.owner.last_name }}" width="40" height="40">
-              <strong>{{ self.owner.first_name }} {{ self.owner.last_name }}</strong>
-            </div>
-          </div>
-          <div class="col d-flex align-items-center justify-content-end text-muted">
-            {{ self.first_published_at }}
-          </div>
-        </div>
+</div>
+<div class="container mt-5">
+  {% if self.cover_image %}
+    {% image self.cover_image fill-1920x1080 format-webp class="img-fluid rounded" %}
+  {% endif %}
+</div>
+<div class="container">
+  <div class="border-bottom border-3 py-3">
+    <div class="text-muted small mb-2">Author</div>
+    <div class="d-flex justify-content-between">
+      <div class="d-flex align-items-center">
+        <image class="rounded-circle me-3"
+          src="{{ self.owner.wagtail_userprofile.avatar.url }}"
+          alt="{{ self.owner.first_name }} {{ self.owner.last_name }}"
+          width="40"
+          height="40">
+        <strong>
+          {{ self.owner.first_name }}
+          {{ self.owner.last_name }}
+        </strong>
+      </div>
+      <div class="d-flex align-items-center justify-content-end text-muted">
+        {{ self.first_published_at }}
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col">
-      <article>
-        {% include 'includes/body.html' %}
-      </article>
-    </div>
-  </div>
+</div>
+<div class="container mt-5">
+  <article>
+    {% include 'includes/body.html' %}
+  </article>
 </div>
 {% endblock %}

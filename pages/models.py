@@ -87,6 +87,7 @@ class HomePage(StreamPageAbstract):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context['latest_post'] = BlogPostPage.objects.live().public().order_by('-first_published_at').first()
+        context['random_blog_posts'] = BlogPostPage.objects.live().public().order_by('?')[:3]
         return context
 
 

@@ -37,51 +37,15 @@
       <h1 class="mb-3 fw-bolder">{{ page.title }}</h1>
     </div>
     <div class="col-sm-6">
-      <form method="GET" action="/search/">
-        <div class="row">
-          <div class="col-8">
-            <div class="form-floating">
-              <input type="text" class="form-control" id="id_search" name="q">
-              <label for="id_search">Search for a post</label>
-            </div>
-          </div>
-          <div class="col-4">
-            <button class="btn btn-lg btn-success w-100 h-100" type="submit">Search</button>
-          </div>
-        </div>
-      </div>
+      {% include 'includes/search_form.html' %}
     </div>
   </div>
 </div>
-<div class="container mt-5">
-  {% with blog_posts.first as blog_post %}
-  <div class="row">
-    <div class="col-4 pb-5 border-bottom mb-3">
-      <a href="{% pageurl blog_post %}" class="text-decoration-none text-dark">
-        <h2 class="fw-bolder">{{ blog_post.title }}</h2>
-      </a>
-      <p class="h5 text-muted">{{ blog_post.search_description }}</p>
-      <div class="d-flex align-items-center">
-        <image class="rounded-circle me-3" src="{{ self.owner.wagtail_userprofile.avatar.url }}" alt="{{ self.owner.first_name }} {{ self.owner.last_name }}" width="35" height="35">
-        <strong class="me-2">{{ blog_post.owner.first_name }} {{ blog_post.owner.last_name }}</strong>
-        <div class="d-inline text-muted">
-          {{ blog_post.first_published_at|date:"F d, Y" }}
-        </div>
-      </div>
-    </div>
-    <div class="col-8 pb-5 border-bottom">
-      {% if blog_post.cover_image %}
-      <a href="{% pageurl blog_post %}">
-        {% image blog_post.cover_image fill-1920x1080 format-webp class="img-fluid rounded" %}
-      </a>
-      {% endif %}
-    </div>
-  </div>
-  {% endwith %}
-</div>
-<div class="container mt-5">
-  {% include 'includes/body.html' %}
-</div>
+
+{% with blog_posts.first as blog_post %}
+  {% include "includes/blog_post_latest.html" %}
+{% endwith %}
+
 <div class="container mt-5">
   <div class="row">
     <div class="col-8">
@@ -89,40 +53,27 @@
         {% for blog_post in blog_posts %}
         {% if blog_post != blog_posts.first %}
         <div class="col-sm-6">
-          <div class="card rounded-0 border-top-0 border-start-0 border-end-0">
-            {% if blog_post.cover_image %}
-            <a href="{% pageurl blog_post %}">
-              {% image blog_post.cover_image fill-640x480 format-webp class="card-img-top rounded img-fluid" %}
-            </a>
-            {% endif %}
-            <div class="card-body">
-              <a href="{% pageurl blog_post %}" class="text-decoration-none text-dark">
-                <h3 class="h5 card-title">{{ blog_post.title }}</h5>
-              </a>
-              <p class="card-text text-muted">{{ blog_post.search_description }}</p>
-              <div class="d-flex">
-                <image class="rounded-circle me-3" src="{{ self.owner.wagtail_userprofile.avatar.url }}" alt="{{ self.owner.first_name }} {{ self.owner.last_name }}" width="25" height="25">
-                <strong class="me-2">{{ blog_post.owner.first_name }} {{ blog_post.owner.last_name }}</strong>
-                <div class="d-inline text-muted">
-                  {{ blog_post.first_published_at|date:"F d, Y" }}
-                </div>
-              </div>
-            </div>
-          </div>
+          {% include "includes/blog_post_card.html" %}
         </div>
         {% endif %}
         {% endfor %}
       </div>
     </div>
     <div class="col-4">
-      <div class="h2 mb-3">Tags</div>
-      {% for tag in self.get_tags %}
-        <a href="{% routablepageurl self "tag" tag.slug %}" class="btn btn-outline-primary btn-sm rounded-pill">{{ tag.name|title }}</a>
-      {% endfor %}
-      <div class="h2 my-3">Years</div>
-      {% for year in self.get_years %}
-        <a href="{% routablepageurl self "year" year %}" class="btn btn-outline-secondary btn-sm rounded-pill">{{ year }}</a>
-      {% endfor %}
+      <div class="list-group">
+        <div class="list-group-item bg-secondary text-white fw-bold">Tags</div>
+        {% for tag in self.get_tags %}
+          <a href="{% routablepageurl self 'tag' tag.slug %}" class="list-group-item {% if active_tag.id == tag.id %}active{% endif %}">{{ tag.name|title }}</a>
+        {% endfor %}
+        <a href="{% pageurl self %}" class="list-group-item bg-light">View all</a>
+      </div>
+      <div class="list-group mt-3">
+        <div class="list-group-item bg-secondary text-white fw-bold">Years</div>
+        {% for year in self.get_years %}
+          <a href="{% routablepageurl self 'year' year %}" class="list-group-item {% if active_year == year %}active{% endif %}">{{ year }}</a>
+        {% endfor %}
+        <a href="{% pageurl self %}" class="list-group-item bg-light">View all</a>
+      </div>
     </div>
   </div>
 </div>
