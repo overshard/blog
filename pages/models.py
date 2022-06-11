@@ -73,7 +73,7 @@ class HomePage(StreamPageAbstract):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        context['latest_post'] = BlogIndexPage.objects.live().first().get_children().first().specific
+        context['latest_post'] = BlogPostPage.objects.live().public().order_by('-last_published_at').first()
         return context
 
 
@@ -136,4 +136,4 @@ class BlogPostPage(StreamPageAbstract):
     class Meta:
         verbose_name = "Blog Page"
         verbose_name_plural = "Blog Pages"
-        ordering = ['-first_published_at']
+        ordering = ['-last_published_at']
