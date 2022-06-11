@@ -1,5 +1,8 @@
 from django.conf import settings
 from taggit.models import Tag
+
+from accounts.models import User
+
 from pages.models import BlogIndexPage
 
 
@@ -17,6 +20,13 @@ def base_url(request):
     return {"BASE_URL": settings.BASE_URL}
 
 
+def site_owner(request):
+    """
+    Provides the site owner's details.
+    """
+    return {"site_owner": User.objects.filter(is_superuser=True).first()}
+
+
 def nav_items(request):
     """
     Provides tags for the navigation.
@@ -30,7 +40,7 @@ def nav_items(request):
         tag.name = tag.name.title()
         try:
             tag.url = blog_index_page.url + blog_index_page.reverse_subpage(
-                'tag', kwargs={'tag': tag.slug}
+                "tag", kwargs={"tag": tag.slug}
             )
         except TypeError:
             continue

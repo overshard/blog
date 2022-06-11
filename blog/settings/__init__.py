@@ -70,6 +70,7 @@ TEMPLATES = [
                 'blog.context_processors.canonical',
                 'blog.context_processors.base_url',
                 'blog.context_processors.nav_items',
+                'blog.context_processors.site_owner',
             ],
         },
     },
