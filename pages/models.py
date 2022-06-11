@@ -12,6 +12,8 @@ from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.search import index
 
+from .utils import og_image
+
 
 class StreamPageAbstract(Page):
     body = StreamField(
@@ -57,6 +59,11 @@ class StreamPageAbstract(Page):
 
     class Meta:
         abstract = True
+
+    def save(self, *args, **kwargs):
+        super_save = super().save(*args, **kwargs)
+        og_image(self.full_url, force=True)
+        return super_save
 
 
 class HomePage(StreamPageAbstract):
