@@ -7,7 +7,11 @@ def create_superuser(apps, schema_editor):
     admin.
     """
     User = apps.get_model('accounts', 'User')
-    User.objects.create_superuser(username='admin', password='admin')
+    user = User.objects.create_superuser(username='admin', password='admin')
+    user.first_name = 'Admin'
+    user.last_name = 'User'
+    user.email = 'admin@example.com'
+    user.save()
 
 
 class Migration(migrations.Migration):
