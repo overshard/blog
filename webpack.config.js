@@ -1,10 +1,10 @@
 const path = require("path");
-const glob = require("glob");
+// const glob = require("glob");
 
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
-const PurgecssPlugin = require("purgecss-webpack-plugin");
+// const PurgecssPlugin = require("purgecss-webpack-plugin");
 const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
 
 const BASE_DIR = __dirname;
@@ -46,48 +46,48 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: "[name].css",
     }),
-    new PurgecssPlugin({
-      paths: glob.sync("./**/*.{js,html}", {
-        ignore: [
-          "**/node_modules/**",
-          "./node_modules/**",
-          "./blog/static/**",
-        ],
-      }),
-      safelist: [
-        /^col-/,  // bootstrap
-        /^bg-/,  // bootstrap
-        /^btn-/,  // bootstrap
-        /^text-/,  // bootstrap
-        /^justify-/,  // bootstrap
-        /^align-/,  // bootstrap
-        /^offset-/,  // bootstrap
-        /^img-/,  // bootstrap
-        /^border-/,  // bootstrap
-        /^rounded-/,  // bootstrap
-        /^fw-/,  // bootstrap
-        /^d-/,  // bootstrap
-        /^m-/,  // bootstrap
-        /^ms-/,  // bootstrap
-        /^me-/,  // bootstrap
-        /^mt-/,  // bootstrap
-        /^mb-/,  // bootstrap
-        /^p-/,  // bootstrap
-        /^ps-/,  // bootstrap
-        /^pe-/,  // bootstrap
-        /^pt-/,  // bootstrap
-        /^pb-/,  // bootstrap
-        /^card-/,  // bootstrap
-        /^navbar-/,  // bootstrap
-        /^nav-/,  // bootstrap
-        /^list-group-/,  // bootstrap
-        /^collapsing/,  // bootstrap accordion
-        /^showing/,  // bootstrap toasts
-        /^CodeMirror/,  // codemirror
-        /^cm-/,  // codemirror
-        /^block-/,  // custom
-      ],
-    }),
+    // new PurgecssPlugin({
+    //   paths: glob.sync("./**/*.{js,html}", {
+    //     ignore: [
+    //       "**/node_modules/**",
+    //       "./node_modules/**",
+    //       "./blog/static/**",
+    //     ],
+    //   }),
+    //   safelist: [
+    //     /^col-/,  // bootstrap
+    //     /^bg-/,  // bootstrap
+    //     /^btn-/,  // bootstrap
+    //     /^text-/,  // bootstrap
+    //     /^justify-/,  // bootstrap
+    //     /^align-/,  // bootstrap
+    //     /^offset-/,  // bootstrap
+    //     /^img-/,  // bootstrap
+    //     /^border-/,  // bootstrap
+    //     /^rounded-/,  // bootstrap
+    //     /^fw-/,  // bootstrap
+    //     /^d-/,  // bootstrap
+    //     /^m-/,  // bootstrap
+    //     /^ms-/,  // bootstrap
+    //     /^me-/,  // bootstrap
+    //     /^mt-/,  // bootstrap
+    //     /^mb-/,  // bootstrap
+    //     /^p-/,  // bootstrap
+    //     /^ps-/,  // bootstrap
+    //     /^pe-/,  // bootstrap
+    //     /^pt-/,  // bootstrap
+    //     /^pb-/,  // bootstrap
+    //     /^card-/,  // bootstrap
+    //     /^navbar-/,  // bootstrap
+    //     /^nav-/,  // bootstrap
+    //     /^list-group-/,  // bootstrap
+    //     /^collapsing/,  // bootstrap accordion
+    //     /^showing/,  // bootstrap toasts
+    //     /^CodeMirror/,  // codemirror
+    //     /^cm-/,  // codemirror
+    //     /^block-/,  // custom
+    //   ],
+    // }),
   ],
   module: {
     rules: [

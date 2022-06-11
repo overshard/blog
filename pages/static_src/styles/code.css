@@ -1,9 +1,13 @@
 .CodeMirror {
   margin: 2rem auto;
-  height: 50vh;
+  height: auto;
   max-width: 1000px;
 }
 
 .CodeMirror-line {
   margin: 0;
+}
+
+.CodeMirror-wrap pre {
+  word-break: break-word;
 }
