@@ -45,6 +45,25 @@
   {% endwith %}
 </div>
 <div class="container mt-5">
+  <div class="row mb-5">
+    <div class="col-sm-8 offset-sm-2">
+      <form method="GET" action="/search/">
+        <div class="row">
+          <div class="col-8">
+            <div class="form-floating">
+              <input type="text" class="form-control" id="id_search" name="q">
+              <label for="id_search">Search for a post</label>
+            </div>
+          </div>
+          <div class="col-4">
+            <button class="btn btn-lg btn-success w-100 h-100" type="submit">Search</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container mt-5">
   {% include 'includes/body.html' %}
 </div>
 {% endblock %}

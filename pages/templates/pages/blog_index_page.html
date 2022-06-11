@@ -29,10 +29,29 @@
 
 {% block main %}
 <div class="container mt-5">
-  {% if active_tag %}
-  <div class="text-muted">{{ active_tag.name|title }}</div>
-  {% endif %}
-  <h1 class="mb-3 fw-bolder">{{ page.title }}</h1>
+  <div class="row">
+    <div class="col-sm-6">
+      {% if active_tag %}
+      <div class="text-muted">{{ active_tag.name|title }}</div>
+      {% endif %}
+      <h1 class="mb-3 fw-bolder">{{ page.title }}</h1>
+    </div>
+    <div class="col-sm-6">
+      <form method="GET" action="/search/">
+        <div class="row">
+          <div class="col-8">
+            <div class="form-floating">
+              <input type="text" class="form-control" id="id_search" name="q">
+              <label for="id_search">Search for a post</label>
+            </div>
+          </div>
+          <div class="col-4">
+            <button class="btn btn-lg btn-success w-100 h-100" type="submit">Search</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <div class="container mt-5">
   {% with blog_posts.first as blog_post %}
