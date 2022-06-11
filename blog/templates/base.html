@@ -63,7 +63,9 @@
           <li class="breadcrumb-item"><a href="{% pageurl page %}">{{ page.title }}</a></li>
           {% endif %}
           {% endfor %}
-          <li class="breadcrumb-item active">{{ self.title }}</li>
+          {% block extra_breadcrumbs %}
+            <li class="breadcrumb-item active">{{ self.title }}</li>
+          {% endblock %}
         </ol>
       </nav>
       {% endblock %}

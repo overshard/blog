@@ -107,7 +107,8 @@ class BlogIndexPage(RoutablePageMixin, StreamPageAbstract):
     @route(r'^tag/(?P<tag>[-\w]+)/$')
     def tag(self, request, tag):
         blog_posts = self.get_blog_posts().filter(tags__slug=tag)
-        return self.render(request, context_overrides={'blog_posts': blog_posts})
+        active_tag = Tag.objects.get(slug=tag)
+        return self.render(request, context_overrides={'blog_posts': blog_posts, 'active_tag': active_tag})
 
     @route(r'^year/(?P<year>\d+)/$')
     def year(self, request, year):

@@ -17,6 +17,16 @@
 {% endblock %}
 
 
+{% block extra_breadcrumbs %}
+{% if active_tag %}
+<li class="breadcrumb-item"><a href="{% pageurl self %}">{{ self.title }}</a></li>
+<li class="breadcrumb-item active">{{ active_tag.name|title }}</li>
+{% else %}
+<li class="breadcrumb-item active">{{ self.title }}</li>
+{% endif %}
+{% endblock %}
+
+
 {% block main %}
 <div class="container mt-5">
   <h1 class="mb-3 fw-bolder">{{ page.title }}</h1>
@@ -85,7 +95,7 @@
     <div class="col-4">
       <div class="h2 mb-3">Tags</div>
       {% for tag in self.get_tags %}
-        <a href="{% routablepageurl self "tag" tag.slug %}" class="btn btn-outline-primary btn-sm rounded-pill">{{ tag.name }}</a>
+        <a href="{% routablepageurl self "tag" tag.slug %}" class="btn btn-outline-primary btn-sm rounded-pill">{{ tag.name|title }}</a>
       {% endfor %}
       <div class="h2 my-3">Years</div>
       {% for year in self.get_years %}
