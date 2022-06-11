@@ -10,10 +10,10 @@ class BlogPostPageAdmin(ThumbnailMixin, ModelAdmin):
     menu_icon = 'doc-full-inverse'
     exclude_from_explorer = True
     menu_order = 200
-    list_display = ('admin_thumb', 'title', 'last_published_at', 'tags_list')
+    list_display = ('admin_thumb', 'title', 'first_published_at', 'tags_list')
     list_filter = ('tags',)
     search_fields = ('title', 'body')
-    ordering = ('-last_published_at',)
+    ordering = ('-first_published_at',)
     thumb_image_field_name = 'cover_image'
     thumb_image_width = 100
 

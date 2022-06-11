@@ -12,6 +12,6 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='blogpostpage',
-            options={'ordering': ['-last_published_at'], 'verbose_name': 'Blog Page', 'verbose_name_plural': 'Blog Pages'},
+            options={'ordering': ['-first_published_at'], 'verbose_name': 'Blog Page', 'verbose_name_plural': 'Blog Pages'},
         ),
     ]

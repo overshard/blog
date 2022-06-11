@@ -55,6 +55,10 @@ class StreamPageAbstract(Page):
     ]
     promote_panels.pop(1)  # Remove the 'For site menus' item
 
+    settings_panels = Page.settings_panels + [
+        FieldPanel('first_published_at'),
+    ]
+
     search_feilds = Page.search_fields + [
         index.SearchField('body'),
     ]
@@ -82,7 +86,7 @@ class HomePage(StreamPageAbstract):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        context['latest_post'] = BlogPostPage.objects.live().public().order_by('-last_published_at').first()
+        context['latest_post'] = BlogPostPage.objects.live().public().order_by('-first_published_at').first()
         return context
 
 
@@ -140,14 +144,14 @@ class BlogIndexPage(RoutablePageMixin, StreamPageAbstract):
         verbose_name_plural = 'Blog Index Pages'
 
     def get_blog_posts(self):
-        return BlogPostPage.objects.live().public().order_by('-last_published_at')
+        return BlogPostPage.objects.live().public().order_by('-first_published_at')
 
     def get_tags(self):
         tag_ids = list(set(BlogPostPage.objects.live().public().values_list('tags', flat=True)))
         return Tag.objects.filter(id__in=tag_ids)
 
     def get_years(self):
-        return list(set(BlogPostPage.objects.live().public().values_list('last_published_at__year', flat=True)))
+        return list(set(BlogPostPage.objects.live().public().values_list('first_published_at__year', flat=True)))
 
     @route(r'^$')
     def index(self, request):
@@ -162,7 +166,7 @@ class BlogIndexPage(RoutablePageMixin, StreamPageAbstract):
 
     @route(r'^year/(?P<year>\d+)/$')
     def year(self, request, year):
-        blog_posts = self.get_blog_posts().filter(last_published_at__year=year)
+        blog_posts = self.get_blog_posts().filter(first_published_at__year=year)
         return self.render(request, context_overrides={'blog_posts': blog_posts})
 
 
@@ -187,4 +191,4 @@ class BlogPostPage(StreamPageAbstract):
     class Meta:
         verbose_name = "Blog Page"
         verbose_name_plural = "Blog Pages"
-        ordering = ['-last_published_at']
+        ordering = ['-first_published_at']
