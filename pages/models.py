@@ -65,7 +65,7 @@ class HomePage(StreamPageAbstract):
     page_description = "The home of our website, you should only have one of these"
 
     parent_page_types = ['wagtailcore.Page']
-    subpage_types = ['BlogIndexPage']
+    subpage_types = ['BlogIndexPage', 'SearchPage']
 
     class Meta:
         verbose_name = 'Home Page'
@@ -74,6 +74,25 @@ class HomePage(StreamPageAbstract):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context['latest_post'] = BlogPostPage.objects.live().public().order_by('-last_published_at').first()
+        return context
+
+
+class SearchPage(StreamPageAbstract):
+    max_count = 1
+
+    page_description = "The search page of our website, you should only have one of these"
+
+    parent_page_types = ['HomePage']
+    subpage_types = []
+
+    class Meta:
+        verbose_name = 'Search Page'
+        verbose_name_plural = 'Search Pages'
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        query = request.GET.get('q', '')
+        context['results'] = BlogPostPage.objects.live().public().search(query)
         return context
 
 
