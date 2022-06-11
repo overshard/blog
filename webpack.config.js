@@ -31,7 +31,7 @@ module.exports = {
       files: [
         "blog/static",
         "**/*.html",
-        "**/*.py",
+        // "**/*.py",  // NOTE: enabling this causes us to up the reload delay to 2000ms which is not an enjoyable experience
       ],
       ignore: [
         "node_modules",
@@ -40,8 +40,8 @@ module.exports = {
       ],
       notify: false,
       open: false,
-      reloadDelay: 1500,
-      reloadDebounce: 1500,
+      reloadDelay: 500,
+      reloadDebounce: 500,
     }),
     new MiniCssExtractPlugin({
       filename: "[name].css",
