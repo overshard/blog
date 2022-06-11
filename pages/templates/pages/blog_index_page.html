@@ -29,6 +29,9 @@
 
 {% block main %}
 <div class="container mt-5">
+  {% if active_tag %}
+  <div class="text-muted">{{ active_tag.name|title }}</div>
+  {% endif %}
   <h1 class="mb-3 fw-bolder">{{ page.title }}</h1>
 </div>
 <div class="container mt-5">
