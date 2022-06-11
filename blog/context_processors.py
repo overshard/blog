@@ -28,8 +28,11 @@ def nav_items(request):
         tags = Tag.objects.none()
     for tag in tags:
         tag.name = tag.name.title()
-        tag.url = blog_index_page.url + blog_index_page.reverse_subpage(
-            'tag', kwargs={'tag': tag.slug}
-        )
+        try:
+            tag.url = blog_index_page.url + blog_index_page.reverse_subpage(
+                'tag', kwargs={'tag': tag.slug}
+            )
+        except TypeError:
+            continue
     sorted_tags = sorted(tags, key=lambda tag: tag.name)
     return {"nav_items": sorted_tags}
