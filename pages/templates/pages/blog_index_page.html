@@ -60,7 +60,7 @@
           <div class="card rounded-0 border-top-0 border-start-0 border-end-0">
             {% if blog_post.cover_image %}
             <a href="{% pageurl blog_post %}">
-              {% image blog_post.cover_image fill-640x480 format-webp class="card-img-top rounded" %}
+              {% image blog_post.cover_image fill-640x480 format-webp class="card-img-top rounded img-fluid" %}
             </a>
             {% endif %}
             <div class="card-body">
