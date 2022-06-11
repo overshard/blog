@@ -80,6 +80,21 @@
   {% block footer %}
   <footer class="border-top py-5 mt-5 bg-dark text-light d-print-none">
     <div class="container">
+      <div class="row border rounded border-warning p-5 mb-5">
+        <div class="col-sm-8">
+          <div class="h1 fw-bolder">Let me know what you think</div>
+          <div class="h5 text-muted">Any comments or you'd just like to chat about the
+            subject? Send me and email! Especially if you find a spelling mistake.</div>
+        </div>
+        <div class="col-sm-4 d-flex align-items-center justify-content-end">
+          <div>
+            <a href="mailto:{{ self.owner.email }}" class="btn btn-primary btn-lg rounded fs-5">
+              {{ self.owner.email }}
+              <i class="bi bi-arrow-right-circle-fill ms-1"></i>
+            </a>
+          </div>
+        </div>
+      </div>
       <div class="row mb-3">
         <div class="col-12 col-md-8">
           <div class="h5 text-muted mb-3 text-uppercase">Blog</div>
@@ -103,10 +118,15 @@
         </div>
       </div>
       <div class="row">
-        <div class="col">
+        <div class="col-sm-6 d-flex align-items-center">
           <small class="text-muted">
             &copy; {% now 'Y' %} Isaac Bythewood. Some rights reserved.
           </small>
+        </div>
+        <div class="col-sm-6 d-flex justify-content-end">
+          <a href="https://github.com/overshard/blog" target="_blank" class="text-light fs-3">
+            <i class="bi bi-github"></i>
+          </a>
         </div>
       </div>
     </div>
