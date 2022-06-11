@@ -169,6 +169,28 @@ class BlogIndexPage(RoutablePageMixin, StreamPageAbstract):
         blog_posts = self.get_blog_posts().filter(first_published_at__year=year)
         return self.render(request, context_overrides={'blog_posts': blog_posts})
 
+    def get_sitemap_urls(self, request=None):
+        # add original url
+        urls = [
+            {
+                "location": self.get_full_url(request),
+                "lastmod": self.last_published_at,
+            }
+        ]
+        # add tag urls
+        for tag in self.get_tags():
+            urls.append({
+                "location": self.get_full_url(request) + self.reverse_subpage('tag', kwargs={'tag': tag.slug}),
+                "lastmod": self.last_published_at,
+            })
+        # add year urls
+        for year in self.get_years():
+            urls.append({
+                "location": self.get_full_url(request) + self.reverse_subpage('year', kwargs={'year': year}),
+                "lastmod": self.last_published_at,
+            })
+        return urls
+
 
 class BlogPostPageTags(TaggedItemBase):
     content_object = ParentalKey(
