@@ -89,11 +89,11 @@ class BlogIndexPage(RoutablePageMixin, StreamPageAbstract):
         return BlogPostPage.objects.live().public().order_by('-last_published_at')
 
     def get_tags(self):
-        tag_ids = BlogPostPage.objects.live().public().values_list('tags', flat=True).distinct()
+        tag_ids = list(set(BlogPostPage.objects.live().public().values_list('tags', flat=True)))
         return Tag.objects.filter(id__in=tag_ids)
 
     def get_years(self):
-        return BlogPostPage.objects.live().public().values_list('last_published_at__year', flat=True).distinct()
+        return list(set(BlogPostPage.objects.live().public().values_list('last_published_at__year', flat=True)))
 
     @route(r'^$')
     def index(self, request):
