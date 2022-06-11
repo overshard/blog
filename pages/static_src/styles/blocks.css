@@ -1,0 +1,33 @@
+.block-title {
+  max-width: 600px;
+  margin: 2rem auto;
+}
+
+.block-rich-text {
+  max-width: 600px;
+  margin: 2rem auto;
+}
+
+.block-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.block-image * {
+  width: auto;
+  height: auto;
+  max-height: 75vh;
+}
+
+.block-embed {
+  margin: 2rem auto;
+  width: 1000px !important;
+  height: 50vh;
+}
+
+.block-embed * {
+  width: 1000px !important;
+  height: 50vh;
+}

@@ -1,0 +1,28 @@
+# Caddyfile for blog
+#
+# I like to use Caddy Server for simple reverse proxies since it has built in
+# automatic HTTPS support. It is probably worth serving static files with
+# Caddy too but I've honestly been too lazy to implement that. I just use
+# whitenoise on Django for that.
+
+(common) {
+  header /* {
+    X-XSS-Protection "1; mode=block"
+    -Server
+  }
+
+  encode zstd gzip
+}
+
+blog.example.com {
+  handle /media/* {
+    uri strip_prefix /media
+    file_server {
+      root /srv/data/blog/media
+    }
+  }
+
+  reverse_proxy localhost:8000
+
+  import common
+}

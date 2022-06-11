@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+
+{% block extra_head %}
+{% include "includes/social.html" %}
+{% endblock %}
+
+
+{% block extra_css %}
+<link href="{% static 'pages.css' %}" rel="stylesheet">
+{% endblock %}
+
+
+{% block extra_js %}
+<script src="{% static 'pages.js' %}"></script>
+{% endblock %}
+
+
+{% block main %}
+<div class="container mt-5">
+  {% with latest_post as blog_post %}
+  <div class="row">
+    <div class="col-4 pb-5 border-bottom">
+      <a href="{% pageurl blog_post %}" class="text-decoration-none text-dark">
+        <h2 class="fw-bolder">{{ blog_post.title }}</h2>
+      </a>
+      <p class="h5 text-muted">{{ blog_post.search_description }}</p>
+      <div class="d-flex align-items-center">
+        <image class="rounded-circle me-3" src="{{ self.owner.wagtail_userprofile.avatar.url }}" alt="{{ self.owner.first_name }} {{ self.owner.last_name }}" width="35" height="35">
+        <strong class="me-2">{{ blog_post.owner.first_name }} {{ blog_post.owner.last_name }}</strong>
+        <div class="d-inline text-muted">
+          {{ blog_post.first_published_at|date:"F d, Y" }}
+        </div>
+      </div>
+    </div>
+    <div class="col-8 pb-5 border-bottom">
+      {% if blog_post.cover_image %}
+      <a href="{% pageurl blog_post %}">
+        {% image blog_post.cover_image fill-1920x1080 format-webp class="img-fluid rounded" %}
+      </a>
+      {% endif %}
+    </div>
+  </div>
+  {% endwith %}
+</div>
+<div class="container mt-5">
+  {% include 'includes/body.html' %}
+</div>
+{% endblock %}

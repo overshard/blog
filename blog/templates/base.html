@@ -1,0 +1,124 @@
+{% load static wagtailuserbar wagtailcore_tags %}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %} · Blog</title>
+  <meta name="description" content="{% block description %}{{ self.search_description }}{% endblock %}">
+  <link rel="canonical" href="{{ canonical }}">
+
+  {% if BASE_URL %}
+  <base href="{{ BASE_URL }}">
+  {% endif %}
+
+  {% block extra_head %}{% endblock %}
+
+  <link href="{% static 'base.css' %}" rel="stylesheet">
+  {% block extra_css %}{% endblock %}
+
+  {% include 'includes/tracking.html' %}
+</head>
+
+<body>
+  {% wagtailuserbar %}
+
+  {% include 'includes/messages.html' %}
+
+  {% block nav %}
+  <nav class="navbar navbar-dark navbar-expand-md bg-primary d-print-none">
+    <div class="container">
+      <a class="navbar-brand" href="/">
+        <span class="display-1 fs-4 text-decoration-none text-uppercase my-0">Blog</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+          {% for nav_item in nav_items %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ nav_item.url }}">
+              {{ nav_item.name }}
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+        <a class="btn btn-sm btn-outline-light ms-auto" href="https://isaacbythewood.com/" target="_blank">About Me</a>
+      </div>
+    </div>
+  </nav>
+  {% endblock %}
+
+  {% block breadcrumb_wrapper %}
+  <div class="bg-light py-2 d-print-none">
+    <div class="container">
+      {% block breadcrumbs %}
+      <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+          {% for page in self.get_ancestors %}
+          {% if page.is_root == False %}
+          <li class="breadcrumb-item"><a href="{% pageurl page %}">{{ page.title }}</a></li>
+          {% endif %}
+          {% endfor %}
+          <li class="breadcrumb-item active">{{ self.title }}</li>
+        </ol>
+      </nav>
+      {% endblock %}
+    </div>
+  </div>
+  {% endblock %}
+
+  <main>
+    {% block main %}{% endblock %}
+  </main>
+
+  {% block footer %}
+  <footer class="border-top py-5 mt-5 bg-dark text-light d-print-none">
+    <div class="container">
+      <div class="row mb-3">
+        <div class="col-12 col-md-8">
+          <div class="h5 text-muted mb-3 text-uppercase">Blog</div>
+          <div>Thoughts from <a href="https://isaacbythewood.com/" class="text-light">Isaac Bythewood</a>,
+            mostly just a lot of notes for myself. Isaac Bythewood is a
+            full-stack developer located in Morganton, NC. No warranty,
+            technical support, or mental support will be provided for anything
+            read here.</div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="h5 text-muted mb-3 text-uppercase">Links</div>
+          <div>
+            <a href="https://isaacbythewood.com/" target="_blank" class="btn btn-sm btn-outline-secondary text-light rounded-pill mb-2">Home</a>
+            <a href="https://blog.bythewood.me/" target="_blank" class="btn btn-sm btn-outline-secondary text-light rounded-pill mb-2">Blog</a>
+            <a href="https://github.com/overshard" target="_blank" class="btn btn-sm btn-outline-secondary text-light rounded-pill mb-2">GitHub</a>
+            <a href="https://analytics.bythewood.me/" target="_blank" class="btn btn-sm btn-outline-secondary text-light rounded-pill mb-2">Analytics</a>
+            <a href="https://github.com/overshard/dockerfiles" target="_blank" class="btn btn-sm btn-outline-secondary text-light rounded-pill mb-2">Dockerfiles</a>
+            <a href="https://github.com/overshard/dotfiles" target="_blank" class="btn btn-sm btn-outline-secondary text-light rounded-pill mb-2">Dotfiles</a>
+            <a href="https://timelite.app/" target="_blank" class="btn btn-sm btn-outline-secondary text-light rounded-pill mb-2">Timelite</a>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <small class="text-muted">
+            &copy; {% now 'Y' %} Isaac Bythewood. Some rights reserved.
+          </small>
+        </div>
+      </div>
+    </div>
+  </footer>
+  {% endblock %}
+
+  <div id="cookie-warning" class="alert alert-danger border-danger alert-dismissible fade position-fixed bottom-0 start-0 m-3 p-2 d-flex flex-column flex-md-row align-items-md-center d-print-none" style="z-index: 1100;" role="alert">
+    We use cookies (and other similar technologies) to collect data to improve your experience.
+    <button type="button" class="btn btn-sm btn-success ms-md-2 mt-2 mt-md-0" data-bs-dismiss="alert" aria-label="Okay">Understood</button>
+  </div>
+
+  <div class="toast-container position-fixed bottom-0 start-0 p-3 mt-5"></div>
+
+  <script src="{% static 'base.js' %}"></script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>
