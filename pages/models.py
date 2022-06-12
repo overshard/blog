@@ -162,14 +162,22 @@ class BlogIndexPage(RoutablePageMixin, StreamPageAbstract):
     @route(r'^tag/(?P<tag>[-\w]+)/$')
     def tag(self, request, tag):
         blog_posts = self.get_blog_posts().filter(tags__slug=tag)
+        if blog_posts.count() < 5:
+            # if we don't have enough results lets grab the latest posts and
+            # to avoid thin content issues
+            extra_posts = self.get_blog_posts().exclude(tags__slug=tag)[:4]
         active_tag = Tag.objects.get(slug=tag)
-        return self.render(request, context_overrides={'blog_posts': blog_posts, 'active_tag': active_tag})
+        return self.render(request, context_overrides={'blog_posts': blog_posts, 'extra_posts': extra_posts, 'active_tag': active_tag})
 
     @route(r'^year/(?P<year>\d+)/$')
     def year(self, request, year):
         blog_posts = self.get_blog_posts().filter(first_published_at__year=year)
+        if blog_posts.count() < 5:
+            # if we don't have enough results lets grab the latest posts and
+            # to avoid thin content issues
+            extra_posts = self.get_blog_posts().exclude(id__in=[r.id for r in blog_posts])[:4]
         active_year = year
-        return self.render(request, context_overrides={'blog_posts': blog_posts, 'active_year': active_year})
+        return self.render(request, context_overrides={'blog_posts': blog_posts, 'extra_posts': extra_posts, 'active_year': active_year})
 
     def get_sitemap_urls(self, request=None):
         # add original url
