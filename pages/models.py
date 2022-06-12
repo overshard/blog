@@ -168,7 +168,8 @@ class BlogIndexPage(RoutablePageMixin, StreamPageAbstract):
     @route(r'^year/(?P<year>\d+)/$')
     def year(self, request, year):
         blog_posts = self.get_blog_posts().filter(first_published_at__year=year)
-        return self.render(request, context_overrides={'blog_posts': blog_posts})
+        active_year = year
+        return self.render(request, context_overrides={'blog_posts': blog_posts, 'active_year': active_year})
 
     def get_sitemap_urls(self, request=None):
         # add original url

@@ -17,10 +17,22 @@
 {% endblock %}
 
 
+{% block extra_title %}
+{% if active_tag %}
+- Tag - {{ active_tag.name|title }}
+{% elif active_year %}
+- Year - {{ active_year }}
+{% endif %}
+{% endblock %}
+
+
 {% block extra_breadcrumbs %}
 {% if active_tag %}
 <li class="breadcrumb-item"><a href="{% pageurl self %}">{{ self.title }}</a></li>
 <li class="breadcrumb-item active">{{ active_tag.name|title }}</li>
+{% elif active_year %}
+<li class="breadcrumb-item"><a href="{% pageurl self %}">{{ self.title }}</a></li>
+<li class="breadcrumb-item active">{{ active_year }}</li>
 {% else %}
 <li class="breadcrumb-item active">{{ self.title }}</li>
 {% endif %}
@@ -31,10 +43,14 @@
 <div class="container mt-5">
   <div class="row">
     <div class="col-sm-6">
-      {% if active_tag %}
-      <div class="text-muted">{{ active_tag.name|title }}</div>
-      {% endif %}
-      <h1 class="mb-3 fw-bolder">{{ page.title }}</h1>
+      <h1 class="mb-3 fw-bolder">
+        {% if active_tag %}
+        <div class="text-muted fs-5">{{ active_tag.name|title }}</div>
+        {% elif active_year %}
+        <div class="text-muted fs-5">{{ active_year }}</div>
+        {% endif %}
+        {{ page.title }}
+      </h1>
     </div>
     <div class="col-sm-6">
       {% include 'includes/search_form.html' %}
