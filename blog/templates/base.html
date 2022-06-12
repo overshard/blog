@@ -30,9 +30,7 @@
   {% block nav %}
   <nav class="navbar navbar-dark navbar-expand-md bg-primary d-print-none">
     <div class="container">
-      <a class="navbar-brand" href="/">
-        {{ site_owner.first_name }} {{ site_owner.last_name }}'s Blog
-      </a>
+      <a href="/" class="navbar-brand logo"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -46,14 +44,13 @@
           </li>
           {% endfor %}
         </ul>
-        <a class="btn btn-sm btn-outline-light ms-auto" href="https://isaacbythewood.com/" target="_blank">About Me</a>
       </div>
     </div>
   </nav>
   {% endblock %}
 
   {% block breadcrumb_wrapper %}
-  <div class="bg-light py-2 d-print-none">
+  <div class="breadcrumb-wrapper py-2 d-print-none">
     <div class="container">
       {% block breadcrumbs %}
       <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
@@ -117,6 +114,10 @@
           </div>
         </div>
       </div>
+    </div>
+  </footer>
+  <div class="sosumi py-4">
+    <div class="container">
       <div class="row">
         <div class="col-sm-6 d-flex align-items-center">
           <small class="text-muted">
@@ -127,10 +128,11 @@
           <a href="https://github.com/overshard/blog" target="_blank" class="text-light fs-3" aria-label="GitHub">
             <i class="bi bi-github"></i>
           </a>
+          <a href="https://isaacbythewood.com/" target="_blank" class="logo ms-4"></a>
         </div>
       </div>
     </div>
-  </footer>
+  </div>
   {% endblock %}
 
   <div id="cookie-warning" class="alert alert-danger border-danger alert-dismissible fade position-fixed bottom-0 start-0 m-3 p-2 d-flex flex-column flex-md-row align-items-md-center d-print-none" style="z-index: 1100;" role="alert">

@@ -1,0 +1,18 @@
+@import "~/blog/static_src/styles/bootstrap.scss";
+
+
+.home-hero {
+  align-items: center;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), var(--home-hero-bg-image);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 50vh;
+}
+
+.home-search-wrapper {
+  background: $blue-700;
+}

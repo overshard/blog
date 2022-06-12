@@ -1,0 +1,44 @@
+@import "~/blog/static_src/styles/bootstrap.scss";
+
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+.vh-100 {
+  height: 100vh;
+}
+
+.navbar.bg-primary {
+  background: $blue-800 !important;
+}
+
+.breadcrumb-wrapper {
+  background: $blue-700 !important;
+  color: $white;
+  font-size: 0.9em;
+
+  a, li {
+    color: $white !important;
+  }
+}
+
+.sosumi {
+  background-color: $black;
+}
+
+.logo {
+  content: "";
+  display: block;
+  background-image: linear-gradient(to right, rgb(14, 63, 244) 0px, rgb(132, 43, 255) 100%);
+  width: 30px;
+  height: 30px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
