@@ -1,7 +1,7 @@
 import Cookie from "js-cookie";
 
 const cookieWarningEl = document.querySelector("#cookie-warning");
-const cookieWarningCookieName = "cookie-warning-accepted";
+const cookieWarningCookieName = "cookiesaccepted";
 
 if (!Cookie.get(cookieWarningCookieName)) {
   cookieWarningEl.classList.add("show");
