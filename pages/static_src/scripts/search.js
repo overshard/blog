@@ -65,10 +65,13 @@ document.addEventListener("DOMContentLoaded", function () {
     // if we are not focusing inside the search field, remove the results
     searchEl.addEventListener("blur", function (e) {
       // unless we are clicking on the results
-      if (!searchEl.parentElement.querySelector("#id_search_results").contains(e.relatedTarget)) {
-        const resultsEl = searchEl.parentElement.querySelector("#id_search_results");
-        if (resultsEl) {
-          searchEl.parentElement.removeChild(resultsEl);
+      const searchResults = searchEl.parentElement.querySelector("#id_search_results");
+      if (searchResults) {
+        if (!searchResults.contains(e.relatedTarget)) {
+          const resultsEl = searchEl.parentElement.querySelector("#id_search_results");
+          if (resultsEl) {
+            searchEl.parentElement.removeChild(resultsEl);
+          }
         }
       }
     });
