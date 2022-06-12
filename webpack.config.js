@@ -11,6 +11,7 @@ const BASE_DIR = __dirname;
 
 module.exports = {
   entry: {
+    admin: "./admin/static_src/index.js",
     base: "./blog/static_src/index.js",
     pages: "./pages/static_src/index.js",
   },

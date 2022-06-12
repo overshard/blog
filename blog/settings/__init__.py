@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'taggit',
     'modelcluster',
 
+    'admin',
     'accounts',
     'pages',
 ]
