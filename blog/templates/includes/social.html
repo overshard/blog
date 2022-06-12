@@ -1,7 +1,7 @@
 {% load social %}
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %} · Blog">
+<meta property="og:title" content="{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}">
 <meta property="og:description" content="{{ self.search_description }}">
 <meta property="og:url" content="{{ canonical }}">
 {% if self.full_url %}
