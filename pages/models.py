@@ -162,6 +162,7 @@ class BlogIndexPage(RoutablePageMixin, StreamPageAbstract):
     @route(r'^tag/(?P<tag>[-\w]+)/$')
     def tag(self, request, tag):
         blog_posts = self.get_blog_posts().filter(tags__slug=tag)
+        extra_posts = None
         if blog_posts.count() < 5:
             # if we don't have enough results lets grab the latest posts and
             # to avoid thin content issues
@@ -172,6 +173,7 @@ class BlogIndexPage(RoutablePageMixin, StreamPageAbstract):
     @route(r'^year/(?P<year>\d+)/$')
     def year(self, request, year):
         blog_posts = self.get_blog_posts().filter(first_published_at__year=year)
+        extra_posts = None
         if blog_posts.count() < 5:
             # if we don't have enough results lets grab the latest posts and
             # to avoid thin content issues
