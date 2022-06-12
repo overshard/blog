@@ -19,7 +19,7 @@
     </a>
     <p class="card-text text-muted">{{ blog_post.search_description }}</p>
     <div class="d-flex">
-      <image class="rounded-circle me-3" src="{{ self.owner.wagtail_userprofile.avatar.url }}" alt="{{ self.owner.first_name }} {{ self.owner.last_name }}" width="25" height="25">
+      <img class="rounded-circle me-3" src="{{ self.owner.wagtail_userprofile.avatar.url }}" alt="{{ self.owner.first_name }} {{ self.owner.last_name }}" width="25" height="25">
       <strong class="me-2">{{ blog_post.owner.first_name }} {{ blog_post.owner.last_name }}</strong>
       <div class="d-inline text-muted">
         {{ blog_post.first_published_at|date:"F d, Y" }}
