@@ -36,9 +36,11 @@ USE_X_FORWARDED_HOST = True
 # Security
 # https://docs.djangoproject.com/en/4.0/ref/settings/#security
 
+CSRF_COOKIE_SAMESITE = "Strict"
 CSRF_COOKIE_SECURE = True
 CSRF_TRUSTED_ORIGINS = [os.environ.get("DJANGO_BASE_URL")]
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
+SESSION_COOKIE_SAMESITE = "Strict"
 SESSION_COOKIE_SECURE = True
 
 
