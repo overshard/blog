@@ -1,3 +1,5 @@
+@import "~/blog/static_src/styles/bootstrap.scss";
+
 .block-title {
   max-width: 600px;
   margin: 2rem auto;
@@ -7,6 +9,11 @@
   max-width: 600px;
   margin: 2rem auto;
   font-size: 1.2em;
+
+  blockquote {
+    border-left: 4px solid $gray-300;
+    padding-left: 1rem;
+  }
 }
 
 .block-image {
