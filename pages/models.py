@@ -5,7 +5,7 @@ from django.conf import settings
 from django.core.files.storage import default_storage
 from django.db import models
 from django.db.models import Q
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect
 from django.utils import timezone
 from modelcluster.contrib.taggit import ClusterTaggableManager
@@ -259,6 +259,7 @@ class BlogPostPage(RoutablePageMixin, StreamPageAbstract):
         one_day_ago = timezone.now() - timezone.timedelta(days=1)
         if not os.path.exists(filename) or default_storage.get_modified_time(filename) < one_day_ago:
             html = self.render(request, context_overrides={'BASE_URL': settings.BASE_URL}).rendered_content
-            pdf_url = generate_pdf_from_html(html, filename)
-            return redirect(pdf_url)
-        return redirect(default_storage.url(filename))
+            generate_pdf_from_html(html, filename)
+        response = HttpResponse(default_storage.open(filename).read(), content_type='application/pdf')
+        response['Content-Disposition'] = 'filename="{}.pdf"'.format(self.title)
+        return response
