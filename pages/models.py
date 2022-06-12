@@ -1,18 +1,26 @@
+import hashlib
+import os
+
+from django.conf import settings
+from django.core.files.storage import default_storage
 from django.db import models
 from django.db.models import Q
 from django.http import JsonResponse
+from django.shortcuts import redirect
+from django.utils import timezone
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import Tag, TaggedItemBase
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
-from wagtail.core.blocks import (ChoiceBlock, RichTextBlock, StructBlock,
-                                 TextBlock)
+from wagtail.core.blocks import ChoiceBlock, RichTextBlock, StructBlock, TextBlock
 from wagtail.core.fields import StreamField
 from wagtail.core.models import Page
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.search import index
+
+from blog.chromium import generate_pdf_from_html
 
 from .utils import og_image
 
@@ -210,7 +218,7 @@ class BlogPostPageTags(TaggedItemBase):
     )
 
 
-class BlogPostPage(StreamPageAbstract):
+class BlogPostPage(RoutablePageMixin, StreamPageAbstract):
     tags = ClusterTaggableManager(through=BlogPostPageTags, blank=True)
 
     promote_panels = StreamPageAbstract.promote_panels + [
@@ -223,14 +231,13 @@ class BlogPostPage(StreamPageAbstract):
     subpage_types = []
 
     class Meta:
-        verbose_name = "Blog Page"
-        verbose_name_plural = "Blog Pages"
+        verbose_name = "Blog Post Page"
+        verbose_name_plural = "Blog Post Pages"
         ordering = ['-first_published_at']
 
-    def get_context(self, request, *args, **kwargs):
-        context = super().get_context(request, *args, **kwargs)
+    def get_related(self):
         similar_objects = [x.id for x in self.tags.similar_objects()]
-        context['related_blog_posts'] = (
+        return (
             BlogPostPage
             .objects
             .live()
@@ -240,4 +247,18 @@ class BlogPostPage(StreamPageAbstract):
             )
             .distinct()[:3]
         )
-        return context
+
+    @route(r'^$')
+    def post(self, request):
+        return self.render(request)
+
+    @route(r'^pdf/$')
+    def pdf(self, request):
+        filename = hashlib.md5(self.full_url.encode("utf-8")).hexdigest()
+        filename = f"post_pdfs/{filename}.pdf"
+        one_day_ago = timezone.now() - timezone.timedelta(days=1)
+        if not os.path.exists(filename) or default_storage.get_modified_time(filename) < one_day_ago:
+            html = self.render(request, context_overrides={'BASE_URL': settings.BASE_URL}).rendered_content
+            pdf_url = generate_pdf_from_html(html, filename)
+            return redirect(pdf_url)
+        return redirect(default_storage.url(filename))
