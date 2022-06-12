@@ -1,8 +1,6 @@
 import "./scripts/code.js";
 import "./scripts/search.js";
 
-import "./styles/blocks.css";
-import "./styles/code.css";
+import "./styles/blocks.scss";
+import "./styles/code.scss";
 import "./styles/home.scss";
-
-import "./images/home-hero.webp";
