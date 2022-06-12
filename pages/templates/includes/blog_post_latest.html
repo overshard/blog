@@ -14,7 +14,7 @@
       </a>
       <div class="mb-3">
         {% for tag in blog_post.tags.all %}
-          <a href="{% routablepageurl blog_post.get_parent.specific 'tag' tag.slug %}" class="badge bg-light rounded-pill text-dark text-decoration-none">
+          <a href="{% routablepageurl blog_post.get_parent.specific 'tag' tag.slug %}" class="btn btn-light btn-sm rounded-pill fw-bold py-0">
             {{ tag.name|title }}
           </a>
         {% endfor %}
