@@ -7,7 +7,7 @@ import CodeMirror from "codemirror/lib/codemirror.js";
 // import "codemirror/mode/shell/shell.js";
 
 import "codemirror/lib/codemirror.css";
-import "codemirror/theme/material.css";
+import "codemirror/theme/material-darker.css";
 
 const initCodeMirror = (codeBlocks) => {
   for (let i = 0; i < codeBlocks.length; i++) {
@@ -22,9 +22,8 @@ const initCodeMirror = (codeBlocks) => {
       if (!textarea.dataset.cmInitialized) {
         setTimeout(() => {
           CodeMirror.fromTextArea(textarea, {
-            theme: "material",
+            theme: "material-darker",
             lineNumbers: true,
-            lineWrapping: true,
             viewportMargin: Infinity,
             // mode: "javascript",
           });

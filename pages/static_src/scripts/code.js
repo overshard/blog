@@ -7,7 +7,7 @@ import "codemirror/mode/css/css.js";
 import "codemirror/mode/shell/shell.js";
 
 import "codemirror/lib/codemirror.css";
-import "codemirror/theme/material.css";
+import "codemirror/theme/material-darker.css";
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -17,9 +17,8 @@ document.addEventListener("DOMContentLoaded", () => {
     Array.prototype.forEach.call(blockCode, (block) => {
       const textarea = block.querySelector("textarea");
       CodeMirror.fromTextArea(textarea, {
-        theme: "material",
+        theme: "material-darker",
         lineNumbers: true,
-        lineWrapping: true,
         readOnly: true,
         viewportMargin: Infinity,
         mode: textarea.dataset.language,
