@@ -236,6 +236,12 @@ class BlogPostPage(RoutablePageMixin, StreamPageAbstract):
         verbose_name_plural = "Blog Post Pages"
         ordering = ['-first_published_at']
 
+    def save(self, *args, **kwargs):
+        filename = self.get_pdf_filename()
+        if default_storage.exists(filename):
+            default_storage.remove(filename)
+        return super().save(*args, **kwargs)
+
     def get_related(self):
         similar_objects = [x.id for x in self.tags.similar_objects()]
         return (
@@ -249,16 +255,18 @@ class BlogPostPage(RoutablePageMixin, StreamPageAbstract):
             .distinct()[:3]
         )
 
+    def get_pdf_filename(self):
+        filename = hashlib.md5(self.full_url.encode("utf-8")).hexdigest()
+        return f"post_pdfs/{filename}.pdf"
+
     @route(r'^$')
     def post(self, request):
         return self.render(request)
 
     @route(r'^pdf/$')
     def pdf(self, request):
-        filename = hashlib.md5(self.full_url.encode("utf-8")).hexdigest()
-        filename = f"post_pdfs/{filename}.pdf"
-        one_day_ago = timezone.now() - timezone.timedelta(days=1)
-        if not os.path.exists(filename) or default_storage.get_modified_time(filename) < one_day_ago:
+        filename = self.get_pdf_filename()
+        if not default_storage.exists(filename):
             html = self.render(request, context_overrides={'BASE_URL': settings.BASE_URL}).rendered_content
             generate_pdf_from_html(html, filename)
         response = HttpResponse(default_storage.open(filename).read(), content_type='application/pdf')
