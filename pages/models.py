@@ -256,7 +256,7 @@ class BlogPostPage(RoutablePageMixin, StreamPageAbstract):
         )
 
     def get_pdf_filename(self):
-        if self.full_url
+        if self.full_url:
             filename = hashlib.md5(self.full_url.encode("utf-8")).hexdigest()
             return f"post_pdfs/{filename}.pdf"
 
