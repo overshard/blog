@@ -117,9 +117,10 @@ class SearchPage(RoutablePageMixin, StreamPageAbstract):
         results = BlogPostPage.objects.live().public().search(q)
         # combine live search results too just incase the user hits enter
         # instead of clicking a result
-        results = list(results) + list(BlogPostPage.objects.live().public().filter(
-            Q(title__icontains=q) | Q(search_description__icontains=q) | Q(tags__name__icontains=q)
-        ).exclude(id__in=[r.id for r in results]).distinct()[:5])
+        if q != '':
+            results = list(results) + list(BlogPostPage.objects.live().public().filter(
+                Q(title__icontains=q) | Q(search_description__icontains=q) | Q(tags__name__icontains=q)
+            ).exclude(id__in=[r.id for r in results]).distinct()[:5])
         return self.render(request, context_overrides={'results': results})
 
     @route(r'^live/$')
