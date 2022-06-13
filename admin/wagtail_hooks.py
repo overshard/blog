@@ -23,12 +23,12 @@ class BlogPostPageAdmin(ThumbnailMixin, ModelAdmin):
     menu_icon = 'doc-full-inverse'
     exclude_from_explorer = True
     menu_order = 200
-    list_display = ('admin_thumb', 'title', 'first_published_at', 'tags_list')
-    list_filter = ('tags',)
+    list_display = ('admin_thumb', 'title', 'first_published_at', 'tags_list', 'live')
+    list_filter = ('tags', 'live')
     search_fields = ('title', 'body')
     ordering = ('-first_published_at',)
     thumb_image_field_name = 'cover_image'
-    thumb_image_width = 100
+    thumb_image_width = 75
 
     def get_queryset(self, request):
         return super().get_queryset(request).prefetch_related('tags')
