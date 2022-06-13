@@ -1,11 +1,26 @@
 # Blog
 
-A simple self-hostable blog built on Wagtail.
+A self-hostable blog built on Wagtail for developers.
 
 
 ## Motivation
 
 I was bored and felt like writing my own blog over the weekend.
+
+
+## Features
+
+- Top notch SEO using industry best practices and multiple scanners to detect
+  issues on a regular basis.
+- Built on Wagtail and Django, powering some of the largest websites in the
+  world. Wagtail is used by Google, NASA, MIT, Mozilla, and many others.
+- Customized for developers, makes use of CodeMirror for syntax highlighting and
+  on the admin panel for a clean code editing experience.
+- Easily adjusted to fit your needs with the use of well documented projects
+  like the above mentioned Wagtail and Django plus Bootstrap for the design and
+  easy to adjust hosting options using Docker.
+- Minimal network payloads, out of the box 100% scores on all lighthouse metrics
+  and most pages, even with a few images, are less than 300kB in size.
 
 
 ## Requirements
