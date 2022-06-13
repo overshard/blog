@@ -9,7 +9,8 @@
     "webpack:development": "nodemon --watch webpack.config.js --exec 'webpack --config webpack.config.js --mode development --watch --devtool source-map'",
     "webpack:production": "webpack --config webpack.config.js --mode production",
     "pull:db": "scp `git config --get remote.origin.url | cut -d ':' -f 1`:/srv/data/blog/db.sqlite3 .",
-    "pull:media": "scp -r `git config --get remote.origin.url | cut -d ':' -f 1`:/srv/data/blog/media ."
+    "pull:media": "scp -r `git config --get remote.origin.url | cut -d ':' -f 1`:/srv/data/blog/media .",
+    "format": "pipenv run black --exclude '/(\\.venv|\\.git|migrations|node_modules)/' ."
   },
   "dependencies": {
     "@popperjs/core": "^2.11.5",
