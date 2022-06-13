@@ -12,4 +12,9 @@ body {
   height: 30px;
   margin-top: auto;
   margin-bottom: auto;
+  transition: transform .2s ease-in-out;
+
+  &:hover {
+    transform: rotate(15deg) scale(1.1);
+  }
 }
