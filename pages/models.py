@@ -239,7 +239,7 @@ class BlogPostPage(RoutablePageMixin, StreamPageAbstract):
     def save(self, *args, **kwargs):
         filename = self.get_pdf_filename()
         if filename and default_storage.exists(filename):
-            default_storage.remove(filename)
+            default_storage.delete(filename)
         return super().save(*args, **kwargs)
 
     def get_related(self):
