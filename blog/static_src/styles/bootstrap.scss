@@ -1,1 +1,40 @@
 @import "~bootstrap/scss/bootstrap";
+
+
+.bg-blue-700 {
+  background: $blue-700 !important;
+}
+
+.bg-blue-800 {
+  background: $blue-800 !important;
+}
+
+.bg-black {
+  background: $black !important;
+}
+
+.breadcrumb {
+  display: block;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+
+  .breadcrumb-item {
+    font-size: 0.9em;
+    white-space: nowrap;
+    display: inline-block;
+
+    a {
+      color: $gray-500;
+      text-decoration: none;
+      transition: color .15s ease-in-out;
+
+      &:hover {
+        color: $gray-200;
+      }
+    }
+
+    &.active {
+      color: $white;
+    }
+  }
+}

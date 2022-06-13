@@ -21,9 +21,9 @@
 <div class="container mt-5">
   <div class="row">
     <div class="col-12 col-md-8 col-lg-6">
-      <div class="mb-3">
+      <div class="mb-2">
         {% for tag in self.tags.all %}
-        <a href="{% routablepageurl self.get_parent.specific 'tag' tag.slug %}" class="btn btn-secondary btn-sm rounded-pill">
+        <a href="{% routablepageurl self.get_parent.specific 'tag' tag.slug %}" class="btn btn-secondary btn-sm rounded-pill py-0">
           {{ tag|title }}
         </a>
         {% endfor %}

@@ -28,7 +28,7 @@
   {% include 'includes/messages.html' %}
 
   {% block nav %}
-  <nav class="navbar navbar-dark navbar-expand-md bg-primary d-print-none">
+  <nav class="navbar navbar-dark navbar-expand-md bg-blue-800 d-print-none">
     <div class="container">
       <a href="/" class="navbar-brand logo" aria-label="Isaac Bythewood"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,7 +38,7 @@
         <ul class="navbar-nav">
           {% for nav_item in nav_items %}
           <li class="nav-item">
-            <a class="nav-link" href="{{ nav_item.url }}">
+            <a class="nav-link {% if active_tag.id == nav_item.id %}active{% endif %}" href="{{ nav_item.url }}">
               {{ nav_item.name }}
             </a>
           </li>
@@ -50,7 +50,7 @@
   {% endblock %}
 
   {% block breadcrumb_wrapper %}
-  <div class="breadcrumb-wrapper py-2 d-print-none">
+  <div class="bg-blue-700 py-2 overflow-auto d-print-none">
     <div class="container">
       {% block breadcrumbs %}
       <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
@@ -70,20 +70,20 @@
   </div>
   {% endblock %}
 
-  <main>
+  <main class="flex-grow-1">
     {% block main %}{% endblock %}
   </main>
 
   {% block footer %}
   <footer class="border-top py-5 mt-5 bg-dark text-light d-print-none">
     <div class="container">
-      <div class="row border rounded border-warning p-5 mb-5">
-        <div class="col-sm-8">
+      <div class="row border border-warning rounded p-5 mb-5">
+        <div class="col-12 col-md-8">
           <div class="h1 fw-bolder">Let me know what you think</div>
           <div class="h5 text-light">Any comments or you'd just like to chat about the
             subject? Send me and email! Especially if you find a spelling mistake.</div>
         </div>
-        <div class="col-sm-4 d-flex align-items-center justify-content-end">
+        <div class="col-12 col-md-4 d-flex align-items-center justify-content-md-end">
           <div>
             <a href="mailto:{{ self.owner.email }}" class="btn btn-primary btn-lg rounded fs-5 d-flex align-items-center">
               <span>Send email</span>
@@ -117,7 +117,8 @@
       </div>
     </div>
   </footer>
-  <div class="sosumi py-4 d-print-none">
+
+  <div class="bg-black py-4 d-print-none">
     <div class="container">
       <div class="row">
         <div class="col-sm-6 d-flex align-items-center">
