@@ -238,7 +238,7 @@ class BlogPostPage(RoutablePageMixin, StreamPageAbstract):
 
     def save(self, *args, **kwargs):
         filename = self.get_pdf_filename()
-        if default_storage.exists(filename):
+        if filename and default_storage.exists(filename):
             default_storage.remove(filename)
         return super().save(*args, **kwargs)
 
@@ -256,8 +256,9 @@ class BlogPostPage(RoutablePageMixin, StreamPageAbstract):
         )
 
     def get_pdf_filename(self):
-        filename = hashlib.md5(self.full_url.encode("utf-8")).hexdigest()
-        return f"post_pdfs/{filename}.pdf"
+        if self.full_url
+            filename = hashlib.md5(self.full_url.encode("utf-8")).hexdigest()
+            return f"post_pdfs/{filename}.pdf"
 
     @route(r'^$')
     def post(self, request):
