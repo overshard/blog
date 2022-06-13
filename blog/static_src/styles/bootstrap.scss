@@ -13,6 +13,18 @@
   background: $black !important;
 }
 
+.bg-gray-925 {
+  background: shade-color($gray-900, 30%) !important;
+}
+
+.border-yellow-800 {
+  border-color: $yellow-800 !important;
+}
+
+.text-gray-300 {
+  color: $gray-300 !important;
+}
+
 .breadcrumb {
   display: block;
   flex-wrap: nowrap;
