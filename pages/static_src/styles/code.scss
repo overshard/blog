@@ -12,3 +12,11 @@
 .CodeMirror-wrap pre {
   word-break: break-word;
 }
+
+.CodeMirror-linenumber.CodeMirror-gutter-elt {
+  color: #8d8d8d;
+}
+
+.cm-s-material-darker .cm-comment {
+  color: #8d8d8d;
+}
