@@ -41,11 +41,21 @@
   </div>
 </div>
 
+{% if self.cover_image %}
 <div class="container mt-5">
-  {% if self.cover_image %}
-    {% image self.cover_image fill-1920x1080 format-webp class="img-fluid rounded" %}
-  {% endif %}
+  {% image self.cover_image fill-640x360 format-webp as cover_image_640 %}
+  {% image self.cover_image fill-1280x720 format-webp as cover_image_1280 %}
+  {% image self.cover_image fill-1920x1080 format-webp as cover_image_1920 %}
+  <img
+    srcset="{{ cover_image_640.url }} 640w,
+            {{ cover_image_1280.url }} 1280w,
+            {{ cover_image_1920.url }} 1920w"
+    src="{{ cover_image_1920.url }}"
+    class="img-fluid rounded"
+    alt="{{ cover_image_1920.alt }}"
+  >
 </div>
+{% endif %}
 
 <div class="container">
   <div class="border-bottom border-3 py-3">
