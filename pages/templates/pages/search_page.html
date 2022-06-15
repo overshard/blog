@@ -77,6 +77,26 @@
       </div>
     </div>
     {% endif %}
+
+    {% if random_posts %}
+    <div class="container mt-5 d-print-none">
+      <div class="row">
+        <div class="col">
+          <div class="text-muted">
+            Random Posts
+          </div>
+          <p>If you don't know what to search for check out some of these posts.</p>
+        </div>
+      </div>
+      <div class="row">
+        {% for blog_post in random_posts %}
+        <div class="col-12 col-sm-6 col-md-4">
+          {% include "includes/blog_post_card.html" %}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
     {% endfor %}
   </div>
 </div>

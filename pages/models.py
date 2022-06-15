@@ -114,6 +114,7 @@ class SearchPage(RoutablePageMixin, StreamPageAbstract):
     @route(r'^$')
     def search(self, request, *args, **kwargs):
         q = request.GET.get('q', '')
+        random_posts = None
         results = BlogPostPage.objects.live().public().search(q)
         # combine live search results too just incase the user hits enter
         # instead of clicking a result
@@ -121,7 +122,9 @@ class SearchPage(RoutablePageMixin, StreamPageAbstract):
             results = list(results) + list(BlogPostPage.objects.live().public().filter(
                 Q(title__icontains=q) | Q(search_description__icontains=q) | Q(tags__name__icontains=q)
             ).exclude(id__in=[r.id for r in results]).distinct()[:5])
-        return self.render(request, context_overrides={'results': results})
+        else:
+            random_posts = BlogPostPage.objects.live().public().order_by('?')[:6]
+        return self.render(request, context_overrides={'results': results, 'random_posts': random_posts, 'q': q})
 
     @route(r'^live/$')
     def live_search(self, request, *args, **kwargs):
