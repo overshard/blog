@@ -186,6 +186,7 @@ class BlogIndexPage(RoutablePageMixin, StreamPageAbstract):
                 "location": self.get_full_url(request) + self.reverse_subpage('year', kwargs={'year': year}),
                 "lastmod": self.last_published_at,
             })
+        # TODO: make the lastmod the last modified date of the latest post on the pages
         return urls
 
     @route(r'^$')
