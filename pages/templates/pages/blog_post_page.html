@@ -53,8 +53,8 @@
     src="{{ cover_image_1920.url }}"
     class="img-fluid rounded"
     alt="{{ cover_image_1920.alt }}"
-    width="{{ cover_image_1920.width }}"
-    height="{{ cover_image_1920.height }}"
+    width="{{ cover_image_1920.width|floatformat:'0' }}"
+    height="{{ cover_image_1920.height|floatformat:'0' }}"
   >
 </div>
 {% endif %}
