@@ -99,7 +99,7 @@ LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
-USE_THOUSAND_SEPARATOR = True
+USE_THOUSAND_SEPARATOR = False  # NOTE: If setting to true this could cause issues with some srcset tags.
 
 
 # Static files (CSS, JavaScript, Images)
