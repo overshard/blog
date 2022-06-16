@@ -5,6 +5,7 @@ from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
 from wagtail.contrib.modeladmin.mixins import ThumbnailMixin
 
 from pages.models import BlogPostPage
+from scheduler.models import ScheduledTask
 
 
 @hooks.register("insert_editor_js", order=100)
@@ -38,3 +39,18 @@ class BlogPostPageAdmin(ThumbnailMixin, ModelAdmin):
 
 
 modeladmin_register(BlogPostPageAdmin)
+
+
+class ScheduledTaskAdmin(ModelAdmin):
+    model = ScheduledTask
+    menu_label = 'Scheduler'
+    menu_icon = 'time'
+    add_to_settings_menu = True
+    menu_order = 900
+    list_display = ('management_command', 'run_interval', 'last_run_at',)
+    list_filter = ('run_interval',)
+    search_fields = ('management_command',)
+    ordering = ('-run_interval',)
+
+
+modeladmin_register(ScheduledTaskAdmin)
