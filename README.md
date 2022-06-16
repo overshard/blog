@@ -104,12 +104,13 @@ mutliple OSS projects has taught me that I need to step back from trying to
 provide support to avoid burnout.
 
 
-## Server guides
+## Server guide
 
-Here are a handful of guides on getting started on various distros, they are
-very simplistic and you should probably add some extra security and automated
-updates. Review your distro's documentation for more information on hardening
-your server.
+This quickstart requires that you have an Alpine Linux server running with a
+domain name pointed to it. I'm currently using Linode as my host since they
+support Alpine Linux nicely. If you don't want to use Linode or Alpine Linux
+you can use these instructions and just change the apk commands at the start to
+whatever Linux distro you're using.
 
 **IMPORTANT NOTE**: Change `blog.bythewood.me` to your domain name where
 relevant in these instructions.
@@ -124,15 +125,6 @@ ISP's IP range.
 I allow my local ISP's range because I have a DHCP lease from them and I get
 tired of logging into my server from my hosting provider's UI to update it. It's
 good enough security and much better than nothing!
-
-
-### Server guide (Alpine Linux)
-
-This quickstart requires that you have an Alpine Linux server running with a
-domain name pointed to it. I'm currently using Linode as my host since they
-support Alpine Linux nicely. If you don't want to use Linode or Alpine Linux
-you can use these instructions and just change the apk commands at the start to
-whatever Linux distro you're using.
 
 Server:
 
