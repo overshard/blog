@@ -15,7 +15,7 @@ class Command(BaseCommand):
             for task in tasks:
                 if task.should_run():
                     now = timezone.now()
-                    timestamp = now.strftime('%d/%b/%Y %H:%M:%S')
+                    timestamp = now.strftime('%d/%b/%Y %H:%M:%S %z')
                     self.stdout.write(f'[Scheduler] [{timestamp}] Running task {task.management_command}')
                     call_command(task.management_command)
                     task.last_run_at = now
