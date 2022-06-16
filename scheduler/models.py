@@ -20,6 +20,7 @@ class ScheduledTask(models.Model):
     )
     run_interval = models.IntegerField(choices=RUN_INTERVAL_CHOICES)
     last_run_at = models.DateTimeField(blank=True, null=True)
+    next_run_at = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
         return self.management_command
@@ -28,4 +29,31 @@ class ScheduledTask(models.Model):
         now = timezone.now()
         if self.last_run_at is None:
             return True
-        return self.last_run_at + timezone.timedelta(seconds=self.run_interval) < now
+        if self.next_run_at is None:
+            return True
+        return self.next_run_at <= now
+
+    def get_next_run_at(self, now):
+        """
+        Returns the next run datetime. Should be in whole increments of the run
+        interval.
+
+        Every 5 minutes should be rounded to the nearest 5 minutes.
+        Every 15 minutes should be rounded to the nearest 15 minutes.
+        Every 30 minutes should be rounded to the nearest 30 minutes.
+        Every hour should be rounded to the nearest hour.
+        Every day should be rounded to the nearest day.
+        """
+
+        if self.run_interval == 300:
+            return now.replace(minute=(now.minute // 5) * 5, second=0, microsecond=0) + timezone.timedelta(minutes=5)
+        elif self.run_interval == 900:
+            return now.replace(minute=(now.minute // 15) * 15, second=0, microsecond=0) + timezone.timedelta(minutes=15)
+        elif self.run_interval == 1800:
+            return now.replace(minute=(now.minute // 30) * 30, second=0, microsecond=0) + timezone.timedelta(minutes=30)
+        elif self.run_interval == 3600:
+            return now.replace(minute=0, second=0, microsecond=0) + timezone.timedelta(hours=1)
+        elif self.run_interval == 86400:
+            return now.replace(hour=0, minute=0, second=0, microsecond=0) + timezone.timedelta(days=1)
+        else:
+            raise ValueError("Invalid run interval")

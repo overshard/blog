@@ -47,7 +47,7 @@ class ScheduledTaskAdmin(ModelAdmin):
     menu_icon = 'time'
     add_to_settings_menu = True
     menu_order = 900
-    list_display = ('management_command', 'run_interval', 'last_run_at',)
+    list_display = ('management_command', 'run_interval', 'last_run_at', 'next_run_at')
     list_filter = ('run_interval',)
     search_fields = ('management_command',)
     ordering = ('-run_interval',)
