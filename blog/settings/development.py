@@ -4,7 +4,7 @@ from . import *  # noqa
 # Custom settings
 
 BASE_URL = "http://localhost:8000"
-WAGTAIL_BASE_URL = BASE_URL
+WAGTAILADMIN_BASE_URL = BASE_URL
 
 
 # Models

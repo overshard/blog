@@ -6,7 +6,7 @@ from . import *  # noqa
 # Custom settings
 
 BASE_URL = os.environ.get("DJANGO_BASE_URL")
-WAGTAIL_BASE_URL = BASE_URL
+WAGTAILADMIN_BASE_URL = BASE_URL
 
 
 # Core settings
