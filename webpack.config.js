@@ -1,5 +1,4 @@
 const path = require("path");
-// const glob = require("glob");
 
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
