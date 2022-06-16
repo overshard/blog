@@ -8,7 +8,8 @@ from django.contrib.messages import constants as messages
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
-# Application definition
+# Models
+# https://docs.djangoproject.com/en/3.0/ref/settings/#models
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
     'admin',
     'accounts',
     'pages',
+    'scheduler',
 ]
 
 MIDDLEWARE = [

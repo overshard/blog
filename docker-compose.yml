@@ -14,5 +14,5 @@ services:
       - /srv/data/blog/:/data/
     ports:
       - "${PORT}:${PORT}"
-    command: gunicorn blog.asgi:application --worker-class uvicorn.workers.UvicornWorker --workers 4 --bind :${PORT} --log-file - --access-logfile - --error-logfile -
+    command: yarn start:production
     restart: always

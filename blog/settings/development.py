@@ -7,6 +7,12 @@ BASE_URL = "http://localhost:8000"
 WAGTAIL_BASE_URL = BASE_URL
 
 
+# Models
+# https://docs.djangoproject.com/en/3.0/ref/settings/#models
+
+INSTALLED_APPS.append("wagtail.contrib.styleguide")  # noqa: F405
+
+
 # Core settings
 # https://docs.djangoproject.com/en/4.0/ref/settings/#core-settings
 
