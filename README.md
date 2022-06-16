@@ -154,36 +154,6 @@ Server:
     cp samplefiles/Caddyfile.sample /etc/caddy/Caddyfile && sed -i 's/blog.example.com/blog.bythewood.me/g' /etc/caddy/Caddyfile
     cp samplefiles/env.sample .env && sed -i 's/blog.example.com/blog.bythewood.me/g' .env
     cp samplefiles/post-receive.sample /srv/git/blog.git/hooks/post-receive
-    mkdir -p /srv/data/blog && chown -R 1000:1000 /srv/data/blog
+    mkdir -p /srv/data/blog/db && chown -R 1000:1000 /srv/data/blog
     docker-compose up --build --detach && docker-compose run web python3 manage.py migrate --noinput && docker-compose run web sqlite3 db.sqlite3 "PRAGMA journal_mode=WAL;" ".exit"
     rc-update add caddy boot && service caddy start
-
-
-### Server guide (Ubuntu Linux)
-
-Similar to the Alpine Linux guide this helps you get started with Ubuntu. Note
-that Ubuntu doesn't seem to have Caddy in their default repositories so we
-have to install it using their offical script.
-
-Server:
-
-    curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/setup.deb.sh' | sudo -E bash
-    apt update; apt upgrade -y; apt install -y docker-compose docker git ufw
-    ufw allow 22/tcp && ufw allow 80/tcp && ufw allow 443/tcp && ufw --force enable
-    mkdir -p /srv/git/blog.git; cd /srv/git/blog.git; git init --bare
-
-Local:
-
-    git clone git@github.com:overshard/blog.git && cd blog
-    git remote add origin root@blog.bythewood.me:/srv/git/blog.git
-    git push --set-upstream origin master
-
-Remote:
-
-    mkdir -p /srv/docker && cd /srv/docker && git clone /srv/git/blog.git blog && cd /srv/docker/blog
-    cp samplefiles/Caddyfile.sample /etc/caddy/Caddyfile && sed -i 's/blog.example.com/blog.bythewood.me/g' /etc/caddy/Caddyfile
-    cp samplefiles/env.sample .env && sed -i 's/blog.example.com/blog.bythewood.me/g' .env
-    cp samplefiles/post-receive.sample /srv/git/blog.git/hooks/post-receive
-    mkdir -p /srv/data/blog && chown -R 1000:1000 /srv/data/blog
-    docker-compose up --build --detach && docker-compose run web python3 manage.py migrate --noinput && docker-compose run web sqlite3 db.sqlite3
-    systemctl restart caddy
