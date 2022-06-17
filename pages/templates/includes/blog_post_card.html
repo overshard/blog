@@ -18,10 +18,12 @@
       <div class="h5 card-title">{{ blog_post.title }}</div>
     </a>
     <div class="card-text text-muted flex-grow-1">{{ blog_post.search_description }}</div>
-    <div class="d-flex mt-3">
-      <img class="rounded-circle me-3" src="{{ self.owner.wagtail_userprofile.avatar.url }}" alt="{{ self.owner.first_name }} {{ self.owner.last_name }}" width="25" height="25">
-      <strong class="me-2">{{ blog_post.owner.first_name }} {{ blog_post.owner.last_name }}</strong>
-      <div class="d-inline text-muted">
+    <div class="row g-0 mt-3">
+      <div class="col-12 col-xl-8 d-flex align-items-center">
+        <img class="rounded-circle me-3" src="{{ self.owner.wagtail_userprofile.avatar.url }}" alt="{{ self.owner.first_name }} {{ self.owner.last_name }}" width="25" height="25">
+        <strong class="me-2">{{ blog_post.owner.first_name }} {{ blog_post.owner.last_name }}</strong>
+      </div>
+      <div class="col-12 col-xl-4 d-flex justify-content-start justify-content-xl-end text-muted">
         {{ blog_post.first_published_at|date:"F d, Y" }}
       </div>
     </div>
