@@ -10,8 +10,10 @@ from ...models import ScheduledTask
 class Command(BaseCommand):
     def handle(self, *args, **options):
         self.stdout.write('[Scheduler] Starting scheduler...')
+
         while True:
             tasks = ScheduledTask.objects.all()
+
             for task in tasks:
                 if task.should_run():
                     now = timezone.now()
@@ -21,5 +23,11 @@ class Command(BaseCommand):
                     task.last_run_at = now
                     task.next_run_at = task.get_next_run_at(now)
                     task.save()
-            time.sleep(60)
+
             self.stdout.write('[Scheduler] Sleeping scheduler for 60 seconds...')
+
+            try:
+                time.sleep(60)
+            except KeyboardInterrupt:
+                self.stdout.write('[Scheduler] Stopping scheduler...')
+                break
