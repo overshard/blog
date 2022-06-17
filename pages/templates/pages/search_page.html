@@ -35,27 +35,8 @@
 <div class="container mt-5">
   <div class="row">
     {% for blog_post in results %}
-    <div class="col-sm-4">
-      <div class="card rounded-0 border-top-0 border-start-0 border-end-0">
-        {% if blog_post.cover_image %}
-        <a href="{% pageurl blog_post %}">
-          {% image blog_post.cover_image fill-640x480 format-webp class="card-img-top rounded img-fluid" %}
-        </a>
-        {% endif %}
-        <div class="card-body">
-          <a href="{% pageurl blog_post %}" class="text-decoration-none text-dark">
-            <h3 class="h5 card-title">{{ blog_post.title }}</h3>
-          </a>
-          <p class="card-text text-muted">{{ blog_post.search_description }}</p>
-          <div class="d-flex">
-            <img class="rounded-circle me-3" src="{{ self.owner.wagtail_userprofile.avatar.url }}" alt="{{ self.owner.first_name }} {{ self.owner.last_name }}" width="25" height="25">
-            <strong class="me-2">{{ blog_post.owner.first_name }} {{ blog_post.owner.last_name }}</strong>
-            <div class="d-inline text-muted">
-              {{ blog_post.first_published_at|date:"F d, Y" }}
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="col-12 col-sm-6 col-md-4 mb-5">
+      {% include 'includes/blog_post_card.html' %}
     </div>
     {% empty %}
     {% if request.GET.q %}
@@ -90,7 +71,7 @@
       </div>
       <div class="row">
         {% for blog_post in random_posts %}
-        <div class="col-12 col-sm-6 col-md-4">
+        <div class="col-12 col-sm-6 col-md-4 mb-5">
           {% include "includes/blog_post_card.html" %}
         </div>
         {% endfor %}

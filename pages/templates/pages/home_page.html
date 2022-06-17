@@ -52,9 +52,9 @@
       <p>If you don't know what you're looking for check out some of my older posts.</p>
     </div>
   </div>
-  <div class="row">
+  <div class="row d-flex flex-nowrap overflow-scroll w-100">
     {% for blog_post in random_blog_posts %}
-    <div class="col-sm-4">
+    <div class="col-10 col-sm-7 col-md-5 col-lg-4">
       {% include "includes/blog_post_card.html" %}
     </div>
     {% endfor %}

@@ -1,6 +1,6 @@
 {% load wagtailcore_tags wagtailimages_tags wagtailroutablepage_tags %}
 
-<div class="card rounded-0 border-0 border-bottom mb-5">
+<div class="card rounded-0 border-0 border-bottom h-100">
   <div class="mb-3">
     {% for tag in blog_post.tags.all %}
       <a href="{% routablepageurl blog_post.get_parent.specific 'tag' tag.slug %}" class="btn btn-light btn-sm rounded-pill fw-bold py-0">
@@ -13,12 +13,12 @@
     {% image blog_post.cover_image fill-640x480 format-webp class="card-img-top rounded img-fluid" %}
   </a>
   {% endif %}
-  <div class="card-body">
+  <div class="card-body d-flex flex-column">
     <a href="{% pageurl blog_post %}" class="text-decoration-none text-dark">
       <div class="h5 card-title">{{ blog_post.title }}</div>
     </a>
-    <div class="card-text text-muted">{{ blog_post.search_description }}</div>
-    <div class="d-flex">
+    <div class="card-text text-muted flex-grow-1">{{ blog_post.search_description }}</div>
+    <div class="d-flex mt-3">
       <img class="rounded-circle me-3" src="{{ self.owner.wagtail_userprofile.avatar.url }}" alt="{{ self.owner.first_name }} {{ self.owner.last_name }}" width="25" height="25">
       <strong class="me-2">{{ blog_post.owner.first_name }} {{ blog_post.owner.last_name }}</strong>
       <div class="d-inline text-muted">

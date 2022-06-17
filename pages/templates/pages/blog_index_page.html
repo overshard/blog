@@ -76,7 +76,7 @@ Currently filtered by year {{ active_year }}.
       <div class="row">
         {% for blog_post in blog_posts %}
         {% if blog_post != blog_posts.first %}
-        <div class="col-12 col-md-6">
+        <div class="col-sm-12 col-md-6 mb-5">
           {% include "includes/blog_post_card.html" %}
         </div>
         {% endif %}
@@ -96,7 +96,7 @@ Currently filtered by year {{ active_year }}.
       </div>
       <div class="row">
         {% for blog_post in extra_posts %}
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 mb-5">
           {% include "includes/blog_post_card.html" %}
         </div>
         {% endfor %}
