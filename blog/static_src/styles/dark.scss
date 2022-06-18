@@ -1,0 +1,38 @@
+#prefers-color-scheme {
+  width: 150px;
+  background-color: #171a1d;
+  border-color: #ffc107;
+  color: white;
+  padding-left: 40px;
+}
+
+.prefers-color-scheme-icon {
+  position: absolute;
+  color: white;
+  margin: 8px;
+}
+
+main.dark {
+  background: #e7e7e7;
+  filter: invert(1);
+
+  img {
+    filter: invert(1);
+  }
+
+  .reverse-invert {
+    filter: invert(1);
+  }
+
+  .card {
+    background: none;
+  }
+
+  .list-group {
+    filter: invert(1);
+  }
+
+  .block-code {
+    filter: invert(1);
+  }
+}
