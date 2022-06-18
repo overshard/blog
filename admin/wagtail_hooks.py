@@ -8,14 +8,24 @@ from pages.models import BlogPostPage
 from scheduler.models import ScheduledTask
 
 
+# @hooks.register("insert_global_admin_js", order=100)
+# def global_admin_js():
+#     return format_html('<script src="{}"></script>', static("admin.global.js"))
+
+
+@hooks.register("insert_global_admin_css", order=100)
+def global_admin_css():
+    return format_html('<link rel="stylesheet" href="{}">', static("admin.global.css"))
+
+
 @hooks.register("insert_editor_js", order=100)
-def global_admin_js():
-    return format_html('<script src="{}"></script>', static("admin.js"))
+def editor_js():
+    return format_html('<script src="{}"></script>', static("admin.editor.js"))
 
 
 @hooks.register("insert_editor_css", order=100)
-def global_admin_css():
-    return format_html('<link rel="stylesheet" href="{}">', static("admin.css"))
+def editor_css():
+    return format_html('<link rel="stylesheet" href="{}">', static("admin.editor.css"))
 
 
 class BlogPostPageAdmin(ThumbnailMixin, ModelAdmin):
