@@ -76,7 +76,11 @@
       </div>
       <div class="d-flex align-items-center justify-content-end text-muted">
         <div class="vr me-3 my-1"></div>
+        {% if self.first_published_at %}
         {{ self.first_published_at|date:"F d, Y" }}
+        {% else %}
+        {% now "F d, Y" %}
+        {% endif %}
       </div>
     </div>
   </div>
