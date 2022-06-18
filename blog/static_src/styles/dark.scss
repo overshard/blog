@@ -1,7 +1,7 @@
 #prefers-color-scheme {
   width: 150px;
   background-color: #171a1d;
-  border-color: #ffc107;
+  border-color: #6b6b6b;
   color: white;
   padding-left: 40px;
 }
@@ -30,6 +30,10 @@ main.dark {
 
   .list-group {
     filter: invert(1);
+  }
+
+  .text-muted {
+    color: #3f3f3f !important;
   }
 
   .block-code {
