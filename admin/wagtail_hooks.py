@@ -1,12 +1,12 @@
 from django.templatetags.static import static
-from django.utils.html import format_html
-from wagtail.core import hooks
-from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
+from django.utils.html import escape, format_html
 from wagtail.contrib.modeladmin.mixins import ThumbnailMixin
+from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
+from wagtail.core import hooks
+from wagtail.rich_text import LinkHandler
 
 from pages.models import BlogPostPage
 from scheduler.models import ScheduledTask
-
 
 # @hooks.register("insert_global_admin_js", order=100)
 # def global_admin_js():
@@ -26,6 +26,20 @@ def editor_js():
 @hooks.register("insert_editor_css", order=100)
 def editor_css():
     return format_html('<link rel="stylesheet" href="{}">', static("admin.editor.css"))
+
+
+class ExternalLinkHandler(LinkHandler):
+    identifier = 'external'
+
+    @classmethod
+    def expand_db_attributes(cls, attrs):
+        href = attrs["href"]
+        return '<a href="%s" target="_blank" rel="noopener noreferrer">' % escape(href)
+
+
+@hooks.register('register_rich_text_features')
+def register_external_link_handler(features):
+    features.register_link_type(ExternalLinkHandler)
 
 
 class BlogPostPageAdmin(ThumbnailMixin, ModelAdmin):
