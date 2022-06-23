@@ -15,7 +15,7 @@ services:
     ports:
       - "${PORT}:${PORT}"
     command: >
-      gunicorn analytics.asgi:application --workers 4 --max-requests 256
+      gunicorn blog.asgi:application --workers 4 --max-requests 256
       --timeout 30 --bind :${PORT} --worker-class uvicorn.workers.UvicornWorker
       --log-file -
     restart: unless-stopped
