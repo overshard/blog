@@ -7,7 +7,7 @@ version: "3"
 
 services:
   web:
-    container_name: blog
+    container_name: blog_web
     build: .
     env_file: .env
     volumes:
@@ -15,7 +15,16 @@ services:
     ports:
       - "${PORT}:${PORT}"
     command: >
-      sh -c "python3 manage.py scheduler &
              gunicorn blog.asgi:application --worker-class uvicorn.workers.UvicornWorker
-             --workers 4 --bind :${PORT} --log-file - --access-logfile - --error-logfile -"
+             --workers 4 --bind :${PORT} --log-file - --access-logfile -
+             --error-logfile -
+    restart: unless-stopped
+  worker:
+    container_name: blog_worker
+    build: .
+    env_file: .env
+    volumes:
+      - /srv/data/blog/:/data/
+    command: >
+      python3 manage.py scheduler
     restart: unless-stopped
