@@ -3,7 +3,7 @@ from taggit.models import Tag
 
 from accounts.models import User
 
-from pages.models import BlogIndexPage
+from pages.models import BlogIndexPage, NewsletterPage
 
 
 def canonical(request):
@@ -46,3 +46,10 @@ def nav_items(request):
             continue
     sorted_tags = sorted(tags, key=lambda tag: tag.name)
     return {"nav_items": sorted_tags}
+
+
+def newsletter_page(request):
+    """
+    Provides the newsletter page.
+    """
+    return {"newsletter_page": NewsletterPage.objects.first()}

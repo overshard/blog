@@ -1,5 +1,4 @@
 import hashlib
-import os
 
 from django.conf import settings
 from django.core.files.storage import default_storage
@@ -7,7 +6,6 @@ from django.db import models
 from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect
-from django.utils import timezone
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import Tag, TaggedItemBase
@@ -21,6 +19,7 @@ from wagtail.images.blocks import ImageChooserBlock
 from wagtail.search import index
 
 from blog.chromium import generate_pdf_from_html
+from mail.forms import SubscriberForm
 
 from .utils import og_image
 
@@ -86,7 +85,7 @@ class HomePage(StreamPageAbstract):
     page_description = "The home of our website, you should only have one of these"
 
     parent_page_types = ['wagtailcore.Page']
-    subpage_types = ['BlogIndexPage', 'SearchPage']
+    subpage_types = ['BlogIndexPage', 'SearchPage', 'NewsletterPage']
 
     class Meta:
         verbose_name = 'Home Page'
@@ -142,6 +141,75 @@ class SearchPage(RoutablePageMixin, StreamPageAbstract):
                 'url': result.full_url,
             })
         return JsonResponse(results, safe=False)
+
+
+class NewsletterPage(RoutablePageMixin, StreamPageAbstract):
+    max_count = 1
+
+    page_description = "The newsletter page of our website, you should only have one of these"
+
+    parent_page_types = ['HomePage']
+    subpage_types = []
+
+    class Meta:
+        verbose_name = 'Newsletter Page'
+        verbose_name_plural = 'Newsletter Pages'
+
+    def get_sitemap_urls(self, request=None):
+        urls = [
+            {
+                "location": self.full_url + self.reverse_subpage('subscribe'),
+                "lastmod": self.last_published_at,
+            },
+            {
+                "location": self.full_url + self.reverse_subpage('unsubscribe'),
+                "lastmod": self.last_published_at,
+            },
+        ]
+        return urls
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        context['random_posts'] = BlogPostPage.objects.live().public().order_by('?')[:6]
+        return context
+
+    @route(r'^$')
+    def newsletter(self, request, *args, **kwargs):
+        return redirect(self.url + self.reverse_subpage('subscribe'))
+
+    @route(r'^subscribe/$')
+    def subscribe(self, request, *args, **kwargs):
+        form = SubscriberForm(request.POST or None)
+        if form.is_valid():
+            form.save()
+            return redirect(self.url + self.reverse_subpage('subscribe_success'))
+        return self.render(request, context_overrides={'subscribe': True})
+
+    @route(r'^subscribe/success/$')
+    def subscribe_success(self, request, *args, **kwargs):
+        return self.render(
+            request,
+            context_overrides={
+                'success': 'Thank you for subscribing to my newsletter!'
+            }
+        )
+
+    @route(r'^unsubscribe/$')
+    def unsubscribe(self, request, *args, **kwargs):
+        form = SubscriberForm(request.POST or None)
+        if form.is_valid():
+            form.save()
+            return redirect(self.url + self.reverse_subpage('unsubscribe_success'))
+        return self.render(request, context_overrides={'unsubscribe': True})
+
+    @route(r'^unsubscribe/success/$')
+    def unsubscribe_success(self, request, *args, **kwargs):
+        return self.render(
+            request,
+            context_overrides={
+                'success': 'Sorry to see you go! You have been unsubscribed from my newsletter.'
+            }
+        )
 
 
 class BlogIndexPage(RoutablePageMixin, StreamPageAbstract):

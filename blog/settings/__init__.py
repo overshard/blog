@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'accounts',
     'pages',
     'scheduler',
+    'mail',
 ]
 
 MIDDLEWARE = [
@@ -74,6 +75,7 @@ TEMPLATES = [
                 'blog.context_processors.base_url',
                 'blog.context_processors.nav_items',
                 'blog.context_processors.site_owner',
+                'blog.context_processors.newsletter_page',
             ],
         },
     },
@@ -130,12 +132,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth
 
 AUTH_USER_MODEL = "accounts.User"
-
-
-# Email
-# https://docs.djangoproject.com/en/4.0/topics/email/#console-backend
-
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 # Wagtail

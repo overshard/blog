@@ -99,23 +99,20 @@
   {% block footer %}
   <footer class="py-5 bg-dark text-light d-print-none">
     <div class="container">
+      {% if newsletter_page %}
       <div class="row bg-gray-925 border border-yellow-500 shadow rounded p-4 mb-5">
-        <div class="col-12 col-md-8">
-          <div class="h1 fw-bolder">Let me know what you think</div>
-          <div class="h5 text-gray-300">Any comments or you'd just like to chat about the
-            subject? Send me and email! Especially if you find a spelling mistake.</div>
-        </div>
-        <div class="col-12 col-md-4 d-flex align-items-center justify-content-md-end">
-          <div>
-            <a href="mailto:{{ self.owner.email }}" class="btn btn-dark btn-lg border-orange-800 rounded fs-5 d-flex align-items-center">
-              <span>Send email</span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-right-short ms-1" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
-              </svg>
-            </a>
+        <div class="col-12 col-lg-7 mb-2 mb-lg-0">
+          <div class="h1 fw-bolder">Get new posts to your inbox</div>
+          <div class="h5 text-gray-300">
+            I only post once every week or so and store your email securely on
+            my own server. It's free tips and tricks with no spam!
           </div>
         </div>
+        <div class="col-12 col-lg-5 d-flex align-items-center">
+          {% include "includes/subscribe_form.html" %}
+        </div>
       </div>
+      {% endif %}
       <div class="row mb-3">
         <div class="col-12 col-md-6 mb-4 mb-md-0">
           <div class="display-5 text-light fs-2 mb-3">Blog</div>
@@ -128,9 +125,9 @@
           <div class="display-5 text-light fs-2 mb-3">Links</div>
           <div>
             <a href="https://isaacbythewood.com/" target="_blank" class="btn btn-sm btn-outline-secondary text-light rounded-pill mb-2">Home</a>
-            <a href="https://analytics.bythewood.me/" target="_blank" class="btn btn-sm btn-outline-secondary text-light rounded-pill mb-2">Analytics</a>
             <a href="https://blog.bythewood.me/" target="_blank" class="btn btn-sm btn-outline-secondary text-light rounded-pill mb-2">Blog</a>
-            <a href="https://timelite.bythewood.me/" target="_blank" class="btn btn-sm btn-outline-secondary text-light rounded-pill mb-2">Timelite</a>
+            <a href="https://analytics.bythewood.me/properties/0d379e18-9ea7-4228-a8bf-82369c25ab84/" target="_blank" class="btn btn-sm btn-outline-secondary text-light rounded-pill mb-2">Analytics</a>
+            <a href="https://status.bythewood.me/properties/dbc133c9-ef2a-40a9-a3f0-a26c64bede0a/" target="_blank" class="btn btn-sm btn-outline-secondary text-light rounded-pill mb-2">Status</a>
           </div>
         </div>
         <div class="col-12 col-md-3 mb-4 mb-md-0">
@@ -139,8 +136,10 @@
             <a href="https://github.com/overshard" target="_blank" class="btn btn-sm btn-outline-secondary text-light rounded-pill mb-2">GitHub</a>
             <a href="https://github.com/overshard/analytics" target="_blank" class="btn btn-sm btn-outline-secondary text-light rounded-pill mb-2">Analytics</a>
             <a href="https://github.com/overshard/blog" target="_blank" class="btn btn-sm btn-outline-secondary text-light rounded-pill mb-2">Blog</a>
+            <a href="https://github.com/overshard/status" target="_blank" class="btn btn-sm btn-outline-secondary text-light rounded-pill mb-2">Status</a>
             <a href="https://github.com/overshard/dockerfiles" target="_blank" class="btn btn-sm btn-outline-secondary text-light rounded-pill mb-2">Dockerfiles</a>
             <a href="https://github.com/overshard/dotfiles" target="_blank" class="btn btn-sm btn-outline-secondary text-light rounded-pill mb-2">Dotfiles</a>
+            <a href="https://github.com/overshard/alpinefiles" target="_blank" class="btn btn-sm btn-outline-secondary text-light rounded-pill mb-2">Alpinefiles</a>
           </div>
         </div>
       </div>

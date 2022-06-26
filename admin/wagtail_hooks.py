@@ -7,6 +7,8 @@ from wagtail.rich_text import LinkHandler
 
 from pages.models import BlogPostPage
 from scheduler.models import ScheduledTask
+from mail.models import Subscriber
+
 
 # @hooks.register("insert_global_admin_js", order=100)
 # def global_admin_js():
@@ -78,3 +80,17 @@ class ScheduledTaskAdmin(ModelAdmin):
 
 
 modeladmin_register(ScheduledTaskAdmin)
+
+
+class SubscriberAdmin(ModelAdmin):
+    model = Subscriber
+    menu_label = 'Subscribers'
+    menu_icon = 'mail'
+    add_to_settings_menu = True
+    menu_order = 1000
+    list_display = ('email', 'created_at')
+    search_fields = ('email',)
+    ordering = ('-created_at',)
+
+
+modeladmin_register(SubscriberAdmin)
