@@ -332,6 +332,18 @@ class BlogPostPage(RoutablePageMixin, StreamPageAbstract):
             filename = hashlib.md5(self.full_url.encode("utf-8")).hexdigest()
             return f"post_pdfs/{filename}.pdf"
 
+    def get_read_time(self):
+        """
+        Get the number of words from the body of the post and calculate the
+        number of minutes it will take to read.
+
+        Most people read at 200 words per minute.
+
+        :return: The number of minutes it will take to read the post.
+        """
+        words = str(self.body).split()
+        return round(len(words) / 200)
+
     @route(r'^$')
     def post(self, request):
         return self.render(request)
