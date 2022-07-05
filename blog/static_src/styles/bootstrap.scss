@@ -33,6 +33,17 @@
   color: $gray-300 !important;
 }
 
+.link-footer {
+  color: $gray-500;
+  text-decoration: none;
+  transition: color 100ms ease-in-out;
+
+  &:hover {
+    color: $white;
+    text-decoration: underline;
+  }
+}
+
 .breadcrumb {
   display: block;
   flex-wrap: nowrap;

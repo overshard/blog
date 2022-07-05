@@ -97,10 +97,10 @@
   </main>
 
   {% block footer %}
-  <footer class="py-5 bg-dark text-light d-print-none">
+  <footer class="bg-black text-light d-print-none">
     <div class="container">
       {% if newsletter_page %}
-      <div class="row bg-gray-925 border border-yellow-500 shadow rounded p-4 mb-5">
+      <div class="row bg-gray-925 border border-yellow-500 shadow rounded p-4">
         <div class="col-12 col-lg-7 mb-2 mb-lg-0">
           <div class="h1 fw-bolder">Get new posts to your inbox</div>
           <div class="h5 text-gray-300">
@@ -113,40 +113,38 @@
         </div>
       </div>
       {% endif %}
-      <div class="row mb-3">
-        <div class="col-12 col-md-6 mb-4 mb-md-0">
-          <div class="display-5 text-light fs-2 mb-3">Blog</div>
-          <div>A blog by Isaac Bythewood that goes into much ado about nothing,
-            especially if it's webdev related. I am a full-stack developer
-            located in Morganton, NC. No warranty, technical support, or mental
-            support will be provided for anything read here.</div>
+      <div class="row links">
+        <div class="col-12 col-lg-6 mb-4 mb-lg-0">
+          <div class="h5 font-monospace mb-3">Blog</div>
+          <p>A blog by <a href="https://isaacbythewood.com/" class="text-light">Isaac Bythewood</a>
+            that goes into much ado about nothing, especially if it's webdev
+            related. I am a full-stack developer located in Morganton, NC. No
+            warranty, technical support, or mental support will be provided for
+            anything read here.</p>
         </div>
-        <div class="col-12 col-md-3 mb-4 mb-md-0">
-          <div class="display-5 text-light fs-2 mb-3">Links</div>
-          <div>
-            <a href="https://isaacbythewood.com/" target="_blank" class="btn btn-sm btn-outline-secondary text-light rounded-pill mb-2">Home</a>
-            <a href="https://blog.bythewood.me/" target="_blank" class="btn btn-sm btn-outline-secondary text-light rounded-pill mb-2">Blog</a>
-            <a href="https://analytics.bythewood.me/properties/0d379e18-9ea7-4228-a8bf-82369c25ab84/" target="_blank" class="btn btn-sm btn-outline-secondary text-light rounded-pill mb-2">Analytics</a>
-            <a href="https://status.bythewood.me/properties/dbc133c9-ef2a-40a9-a3f0-a26c64bede0a/" target="_blank" class="btn btn-sm btn-outline-secondary text-light rounded-pill mb-2">Status</a>
-          </div>
+        <div class="col-6 col-lg-2 offset-lg-2">
+          <div class="h5 font-monospace mb-3">Projects</div>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="https://github.com/overshard/analytics" class="link-footer">Analytics</a></li>
+            <li class="mb-2"><a href="https://github.com/overshard/status" class="link-footer">Status</a></li>
+            <li class="mb-2"><a href="https://github.com/overshard/timelite" class="link-footer">Timelite</a></li>
+            <li class="mb-2"><a href="https://github.com/overshard/ai-art" class="link-footer">AI-Art</a></li>
+          </ul>
         </div>
-        <div class="col-12 col-md-3 mb-4 mb-md-0">
-          <div class="display-5 text-light fs-2 mb-3">Projects</div>
-          <div>
-            <a href="https://github.com/overshard" target="_blank" class="btn btn-sm btn-outline-secondary text-light rounded-pill mb-2">GitHub</a>
-            <a href="https://github.com/overshard/analytics" target="_blank" class="btn btn-sm btn-outline-secondary text-light rounded-pill mb-2">Analytics</a>
-            <a href="https://github.com/overshard/blog" target="_blank" class="btn btn-sm btn-outline-secondary text-light rounded-pill mb-2">Blog</a>
-            <a href="https://github.com/overshard/status" target="_blank" class="btn btn-sm btn-outline-secondary text-light rounded-pill mb-2">Status</a>
-            <a href="https://github.com/overshard/dockerfiles" target="_blank" class="btn btn-sm btn-outline-secondary text-light rounded-pill mb-2">Dockerfiles</a>
-            <a href="https://github.com/overshard/dotfiles" target="_blank" class="btn btn-sm btn-outline-secondary text-light rounded-pill mb-2">Dotfiles</a>
-            <a href="https://github.com/overshard/alpinefiles" target="_blank" class="btn btn-sm btn-outline-secondary text-light rounded-pill mb-2">Alpinefiles</a>
-          </div>
+        <div class="col-6 col-lg-2">
+          <div class="h5 font-monospace mb-3">Links</div>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="https://isaacbythewood.com/code" class="link-footer">Code</a></li>
+            <li class="mb-2"><a href="https://isaacbythewood.com/art" class="link-footer">Art</a></li>
+            <li class="mb-2"><a href="https://analytics.bythewood.me/properties/0d379e18-9ea7-4228-a8bf-82369c25ab84/" class="link-footer">Analytics</a></li>
+            <li class="mb-2"><a href="https://status.bythewood.me/properties/dbc133c9-ef2a-40a9-a3f0-a26c64bede0a/" class="link-footer">Status</a></li>
+          </ul>
         </div>
       </div>
     </div>
   </footer>
 
-  <div class="bg-black py-4 d-print-none">
+  <div class="bg-dark py-3 d-print-none">
     <div class="container">
       <div class="row">
         <div class="col-sm-6 d-flex align-items-center justify-content-center justify-content-sm-start mt-3 mt-sm-0 order-1 order-sm-0">
