@@ -12,6 +12,7 @@ db.sqlite3-wal
 docker-compose.yml
 Dockerfile
 LICENSE.md
+Makefile
 media
 node_modules
 README.md
