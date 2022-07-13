@@ -1,10 +1,15 @@
-.PHONY: run runserver webpack check clean push pull
+# Django + Webpack Makefile
+# v. 2022.07.13
+
+
+.PHONY: run runserver webpack check clean push pull update
 .DEFAULT: run
 
 
 SERVER_URL = $(shell git config --get remote.origin.url | cut -d ':' -f 1)
 INSTALLED_PYTHON_VERSIONS = $(shell ls ~/.pyenv/versions/)
 REQUIRED_PYTHON_VERSION = $(shell cat Pipfile | grep "^python_version " | cut -d '"' -f 2)
+PROJECT_NAME = $(shell basename $(pwd))
 
 
 run: check install
@@ -72,6 +77,13 @@ pull:
 	rsync -avz $(SERVER_URL):/srv/data/blog/db/db.sqlite3 db.sqlite3
 	rsync -avz $(SERVER_URL):/srv/data/blog/media/ media
 	@echo "> all files copied"
+
+
+update: install
+	@echo "update -------------------------------------------------------------"
+	pipenv update
+	yarn upgrade
+	@echo "> all deps updated"
 
 
 clean:
