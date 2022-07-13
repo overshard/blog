@@ -9,7 +9,7 @@
 SERVER_URL = $(shell git config --get remote.origin.url | cut -d ':' -f 1)
 INSTALLED_PYTHON_VERSIONS = $(shell ls ~/.pyenv/versions/)
 REQUIRED_PYTHON_VERSION = $(shell cat Pipfile | grep "^python_version " | cut -d '"' -f 2)
-PROJECT_NAME = $(shell basename $(pwd))
+PROJECT_NAME = $(shell basename $(PWD))
 
 
 run: check install
@@ -73,9 +73,8 @@ push:
 
 pull:
 	@echo "pull ---------------------------------------------------------------"
-	git pull
-	rsync -avz $(SERVER_URL):/srv/data/blog/db/db.sqlite3 db.sqlite3
-	rsync -avz $(SERVER_URL):/srv/data/blog/media/ media
+	rsync -avz $(SERVER_URL):/srv/data/$(PROJECT_NAME)/db/db.sqlite3 db.sqlite3
+	rsync -avz $(SERVER_URL):/srv/data/$(PROJECT_NAME)/media/ media
 	@echo "> all files copied"
 
 
