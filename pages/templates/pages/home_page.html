@@ -21,11 +21,29 @@
 
 
 {% block main %}
-<div class="bg-blue-700 reverse-invert">
-  <div class="container py-4">
+<div class="home-hero bg-blue-700 reverse-invert d-flex flex-column justify-content-center">
+  {% if self.cover_image %}
+  <div class="home-hero-image reverse-invert">
+    {% image self.cover_image fill-640x360 format-webp as cover_image_640 %}
+    {% image self.cover_image fill-1280x720 format-webp as cover_image_1280 %}
+    {% image self.cover_image fill-1920x1080 format-webp as cover_image_1920 %}
+    {% image self.cover_image fill-2560x1440 format-webp as cover_image_2560 %}
+    <img
+      srcset="{{ cover_image_640.url }} 640w,
+              {{ cover_image_1280.url }} 1280w,
+              {{ cover_image_1920.url }} 1920w,
+              {{ cover_image_2560.url }} 2560w"
+      src="{{ cover_image_2560.url }}"
+      alt="{{ cover_image_2560.alt }}"
+      width="{{ cover_image_2560.width }}"
+      height="{{ cover_image_2560.height }}"
+    >
+  </div>
+  {% endif %}
+  <div class="home-hero-text container py-4">
     <div class="row">
       <div class="col text-center mb-3">
-        <h1 class="display-3 text-white">{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}</h1>
+        <h1 class="display-3 fw-bolder text-white text-shadow">{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}</h1>
       </div>
     </div>
     <div class="row">
